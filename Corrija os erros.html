@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Professor Reginaldo · Corrija os erros</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            background: linear-gradient(145deg, #b3e0ff, #7fc9f0);
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fffef7;
+            border-radius: 32px;
+            overflow: hidden;
+            box-shadow: 0 16px 32px rgba(0,0,0,0.12);
+        }
+        .header {
+            background: #1c6e8f;
+            padding: 24px;
+            color: white;
+            border-bottom: 5px solid #ffcf7a;
+        }
+        .header h1 { margin: 0; font-size: 1.8rem; }
+        .content { padding: 28px; }
+        .card {
+            background: #fefcf0;
+            padding: 20px;
+            border-radius: 28px;
+            margin-bottom: 20px;
+        }
+        .frase-errada {
+            background: #ffe6e5;
+            padding: 12px;
+            border-radius: 20px;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 20px;
+            border: 2px solid #d4cbab;
+            font-family: inherit;
+            resize: vertical;
+            font-size: 1rem;
+        }
+        button {
+            background: #1c6e8f;
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 40px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:disabled { background: #bbbbbb; cursor: not-allowed; }
+        .hidden { display: none; }
+        .input-nome {
+            width: 100%;
+            padding: 12px;
+            border-radius: 40px;
+            border: 2px solid #d4cbab;
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+        .premio {
+            text-align: center;
+            background: #faf7e1;
+            padding: 20px;
+            border-radius: 28px;
+            margin-top: 20px;
+            border: 2px solid gold;
+        }
+        footer { text-align: center; font-size: 0.75rem; margin-top: 20px; padding: 15px; color: #5f6a6f; }
+        .btn-group { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+        .status-msg { margin-top: 10px; font-size: 0.9rem; text-align: center; }
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #fff;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 0.6s linear infinite;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .confete {
+            position: fixed;
+            font-size: 24px;
+            pointer-events: none;
+            animation: confete 1s ease-out forwards;
+        }
+        @keyframes confete {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-100px); opacity: 0; }
+        }
+        .resumo-item { margin-bottom: 15px; border-bottom: 1px solid #ddd; padding-bottom: 10px; text-align: left; }
+        .resumo-certa { color: #2b8c4a; }
+        .resumo-errada { color: #e07a5f; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>Professor Reginaldo <span>✍️ Corrija os erros</span></h1>
+        <p>Reescreva a frase corretamente e clique em "Próxima". Avance mesmo com erros.</p>
+    </div>
+    <div class="content">
+        <div id="identificacao" class="card">
+            <h3>📝 Identifique-se</h3>
+            <p>Digite seu nome completo para começar.</p>
+            <input type="text" id="nomeAluno" class="input-nome" placeholder="Seu nome completo">
+            <button id="iniciarBtn" style="background:#2b8c4a;">▶️ Iniciar atividade</button>
+        </div>
+        <div id="questionArea" class="card hidden"></div>
+        <div id="resultadoArea" class="premio hidden"></div>
+        <footer>✨ Escreva a versão corrigida. Não é preciso acertar para avançar.</footer>
+    </div>
+</div>
+<script>
+    const FORMSPREE_URL = "https://formspree.io/f/mvzwjoza"; // substitua
+
+    const frases = [
+        { errada: "Eu gosto de paçear no parque.", correta: "Eu gosto de passear no parque." },
+        { errada: "Nós fomos no cinema ontem a noite.", correta: "Nós fomos ao cinema ontem à noite." },
+        { errada: "Ele faz tudo com muito geito.", correta: "Ele faz tudo com muito jeito." },
+        { errada: "A professora chegou atrazada.", correta: "A professora chegou atrasada." },
+        { errada: "Meu aniversário é no dia 15 de dezembro.", correta: "Meu aniversário é no dia 15 de dezembro." },
+        { errada: "Aquela musica é muito bonita.", correta: "Aquela música é muito bonita." },
+        { errada: "Ela comprou um vestido azul marinho.", correta: "Ela comprou um vestido azul-marinho." },
+        { errada: "O carro tava com o pneu furado.", correta: "O carro estava com o pneu furado." },
+        { errada: "Vamos fazer uma viagem pra praia.", correta: "Vamos fazer uma viagem para a praia." },
+        { errada: "Eles estão estudando para o concurso.", correta: "Eles estão estudando para o concurso." },
+        { errada: "A menina estava muito feliz porque ganhou um presente.", correta: "A menina estava muito feliz porque ganhou um presente." },
+        { errada: "Meu pai trabalha numa empresa grande.", correta: "Meu pai trabalha em uma empresa grande." },
+        { errada: "Nós vamos chegar mais cedo hoje.", correta: "Nós vamos chegar mais cedo hoje." },
+        { errada: "Ontem a noite teve um show muito bom.", correta: "Ontem à noite teve um show muito bom." },
+        { errada: "A criança caiu e machucou o joelho.", correta: "A criança caiu e machucou o joelho." }
+    ];
+
+    let indiceAtual = 0;
+    let respostas = new Array(frases.length).fill("");
+    let nomeAluno = "";
+
+    const identificacaoDiv = document.getElementById('identificacao');
+    const questionArea = document.getElementById('questionArea');
+    const resultadoArea = document.getElementById('resultadoArea');
+
+    function iniciar() {
+        nomeAluno = document.getElementById('nomeAluno').value.trim();
+        if (nomeAluno === "") {
+            alert("Digite seu nome completo.");
+            return;
+        }
+        identificacaoDiv.classList.add('hidden');
+        questionArea.classList.remove('hidden');
+        indiceAtual = 0;
+        respostas.fill("");
+        carregarFrase();
+    }
+
+    function carregarFrase() {
+        const frase = frases[indiceAtual];
+        const saved = respostas[indiceAtual];
+        questionArea.innerHTML = `
+            <div>
+                <div><strong>Frase ${indiceAtual+1} de ${frases.length}</strong></div>
+                <div class="frase-errada">❌ ${frase.errada}</div>
+                <textarea id="correcao" rows="3" placeholder="Escreva a frase correta aqui...">${saved}</textarea>
+                <div class="btn-group">
+                    <button id="proximoBtn">➡️ Próxima frase</button>
+                </div>
+                ${indiceAtual > 0 ? '<button id="anteriorBtn" style="background:#bba87a;">⬅️ Anterior</button>' : ''}
+            </div>
+        `;
+        const textarea = document.getElementById('correcao');
+        const proximoBtn = document.getElementById('proximoBtn');
+        proximoBtn.onclick = () => {
+            respostas[indiceAtual] = textarea.value;
+            if (indiceAtual + 1 < frases.length) {
+                indiceAtual++;
+                carregarFrase();
+            } else {
+                mostrarResultados();
+            }
+        };
+        if (indiceAtual > 0) {
+            const anteriorBtn = document.getElementById('anteriorBtn');
+            anteriorBtn.onclick = () => {
+                respostas[indiceAtual] = textarea.value;
+                indiceAtual--;
+                carregarFrase();
+            };
+        }
+    }
+
+    function normalize(str) {
+        return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim().replace(/\s+/g, ' ');
+    }
+
+    function mostrarResultados() {
+        questionArea.classList.add('hidden');
+        const acertos = respostas.filter((r, idx) => r && normalize(r) === normalize(frases[idx].correta)).length;
+        const erros = frases.length - acertos;
+
+        let detalhes = '';
+        frases.forEach((f, i) => {
+            const resposta = respostas[i] || "(não respondida)";
+            const correta = normalize(resposta) === normalize(f.correta);
+            detalhes += `
+                <div class="resumo-item">
+                    <strong>Frase ${i+1}:</strong><br>
+                    Original: ${f.errada}<br>
+                    Sua correção: ${resposta}<br>
+                    Correção esperada: ${f.correta}<br>
+                    <span class="${correta ? 'resumo-certa' : 'resumo-errada'}">${correta ? '✓ Correta' : '✗ Incorreta'}</span>
+                </div>
+            `;
+        });
+
+        resultadoArea.classList.remove('hidden');
+        resultadoArea.innerHTML = `
+            <h2>🏆 RESULTADO - ${nomeAluno} 🏆</h2>
+            <p>✅ Acertos: ${acertos} de ${frases.length}</p>
+            <p>❌ Erros: ${erros}</p>
+            <div style="max-height: 400px; overflow-y: auto; text-align: left; margin: 20px 0;">
+                ${detalhes}
+            </div>
+            <div class="btn-group">
+                <button id="emailBtn">📧 Enviar resultados por e-mail</button>
+                <button id="reiniciarBtn">🔄 Recomeçar atividade</button>
+            </div>
+            <div id="statusMsg" class="status-msg"></div>
+        `;
+
+        document.getElementById('emailBtn').onclick = () => enviarResultados(acertos, detalhes);
+        document.getElementById('reiniciarBtn').onclick = () => {
+            resultadoArea.classList.add('hidden');
+            identificacaoDiv.classList.remove('hidden');
+            document.getElementById('nomeAluno').value = '';
+            indiceAtual = 0;
+            respostas.fill("");
+        };
+    }
+
+    async function enviarResultados(acertos, detalhes) {
+        const formData = new FormData();
+        formData.append('_subject', `Corrija Erros - ${nomeAluno}`);
+        let texto = `Aluno: ${nomeAluno}\nData: ${new Date().toLocaleString()}\nAcertos: ${acertos}/${frases.length}\n\n${detalhes.replace(/<[^>]*>/g, '')}`;
+        formData.append('resultado_completo', texto);
+
+        const btn = document.getElementById('emailBtn');
+        btn.innerHTML = '📧 Enviando... <span class="loading"></span>';
+        btn.disabled = true;
+
+        try {
+            const response = await fetch(FORMSPREE_URL, {
+                method: 'POST',
+                body: formData,
+                headers: { 'Accept': 'application/json' }
+            });
+            if (response.ok) {
+                btn.innerHTML = '✅ Enviado com sucesso!';
+                document.getElementById('statusMsg').innerHTML = '📧 Resultados enviados para o professor. Obrigado!';
+            } else {
+                throw new Error();
+            }
+        } catch (error) {
+            btn.innerHTML = '❌ Erro ao enviar. Tente novamente.';
+            btn.disabled = false;
+        }
+    }
+
+    document.getElementById('iniciarBtn').addEventListener('click', iniciar);
+</script>
+</body>
+</html>
