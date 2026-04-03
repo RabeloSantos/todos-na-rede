@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atividade Transportes – Todos na Rede | Prof. Reginaldo</title>
+    <style> /* Mesmo style básico – para economizar espaço, repita o mesmo conteúdo style do frutas.html */ 
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', 'Comic Neue', 'Comic Sans MS', sans-serif;
+            background: linear-gradient(135deg, #e8f0e8 0%, #d4e4d4 100%);
+            margin: 0;
+            padding: 20px;
+            color: #1e2a3e;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 48px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            padding: 24px 30px 40px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            border-bottom: 3px solid #ffd966;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+            background: linear-gradient(to right, #fff8e7, #ffffff);
+            border-radius: 30px;
+            padding: 20px 25px;
+        }
+        .titulo-area { flex: 1; }
+        h1 {
+            font-size: 2rem;
+            background: linear-gradient(135deg, #2b6e4c, #f4a261);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin: 0 0 8px 0;
+        }
+        .professor {
+            font-size: 1.1rem;
+            color: #e67e22;
+            font-weight: 600;
+            background: #fff3e0;
+            display: inline-block;
+            padding: 4px 16px;
+            border-radius: 40px;
+        }
+        .aluno-area {
+            background: #f8f9fa;
+            padding: 12px 24px;
+            border-radius: 60px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .aluno-area label { font-weight: 700; color: #2c6e4c; }
+        .aluno-area input {
+            padding: 10px 18px;
+            border-radius: 50px;
+            border: 2px solid #ffd966;
+            font-size: 1rem;
+            width: 240px;
+            font-family: inherit;
+        }
+        .btn-enviar {
+            background: linear-gradient(135deg, #2b6e4c, #1e6f5c);
+            color: white;
+            border: none;
+            padding: 10px 28px;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: inherit;
+        }
+        .btn-enviar:hover { transform: scale(0.97); }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 28px;
+            margin: 35px 0;
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 32px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid #ffe1a0;
+        }
+        .card:hover { transform: translateY(-6px); box-shadow: 0 18px 30px rgba(0, 0, 0, 0.12); }
+        .figura {
+            background: linear-gradient(145deg, #fffaf0, #fff5e6);
+            padding: 20px 15px 15px;
+            text-align: center;
+            border-bottom: 2px solid #ffe0a3;
+            min-height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .figura-emoji { font-size: 5rem; display: inline-block; }
+        .frase {
+            padding: 20px 18px 20px;
+            background: #ffffff;
+            font-size: 1.05rem;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+        .frase p { margin: 0 0 12px 0; color: #2d3e3a; }
+        input.resposta {
+            font-size: 1rem;
+            padding: 10px 12px;
+            width: 100%;
+            max-width: 170px;
+            border: 2px solid #ffd48a;
+            border-radius: 60px;
+            font-weight: 500;
+            text-align: center;
+            background-color: #fffef7;
+            transition: 0.2s;
+            font-family: inherit;
+            margin-top: 6px;
+        }
+        input.resposta:focus {
+            border-color: #f4a261;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(244,162,97,0.2);
+        }
+        .btn-check {
+            background: #fff0db;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 40px;
+            font-weight: 700;
+            color: #c16f2e;
+            cursor: pointer;
+            margin-top: 12px;
+            font-size: 0.8rem;
+            transition: 0.2s;
+            display: inline-block;
+            font-family: inherit;
+        }
+        .btn-check:hover { background: #ffe0b5; transform: scale(0.96); }
+        .feedback {
+            margin-top: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding-left: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .correto { color: #2b6e4c; background: #e0f2e9; padding: 4px 10px; border-radius: 30px; display: inline-block; }
+        .errado { color: #c2410c; background: #ffe6de; padding: 4px 10px; border-radius: 30px; display: inline-block; }
+        .acao-global {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 20px 0 25px;
+        }
+        button {
+            background: #f1f5f9;
+            border: none;
+            padding: 12px 26px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: inherit;
+        }
+        button.primario { background: linear-gradient(135deg, #f4a261, #e76f51); color: white; }
+        button.primario:hover { transform: scale(0.97); }
+        .footer {
+            text-align: center;
+            margin-top: 35px;
+            font-size: 0.8rem;
+            color: #7f8c7a;
+            border-top: 1px solid #ffe0b5;
+            padding-top: 20px;
+        }
+        .nav-links {
+            text-align: center;
+            margin: 20px 0 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            background: #f1f5f9;
+            padding: 8px 20px;
+            border-radius: 40px;
+            text-decoration: none;
+            color: #2b6e4c;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+        .nav-links a:hover { background: #e2e8f0; }
+        .mensagem-envio {
+            text-align: center;
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 60px;
+            font-weight: 500;
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            min-width: 300px;
+        }
+        .sucesso { background: #d9f0e3; color: #1e5a3e; display: block; border-left: 5px solid #2b6e4c; }
+        .erro-email { background: #ffe0d6; color: #b13e2d; display: block; border-left: 5px solid #e76f51; }
+        .loading { background: #fff3cd; color: #856404; display: block; border-left: 5px solid #ffc107; }
+        @media (max-width: 700px) {
+            .container { padding: 16px; }
+            .header { flex-direction: column; align-items: stretch; }
+            .figura-emoji { font-size: 3.8rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="titulo-area">
+            <h1>🚗 Meios de transporte – Qual é a palavra?</h1>
+            <div class="professor">✨ Professor Reginaldo Rabelo ✨</div>
+        </div>
+        <div class="aluno-area">
+            <label>👧🧒 Seu nome:</label>
+            <input type="text" id="nomeAluno" name="nome" placeholder="Digite seu nome completo" autocomplete="name" required>
+            <button id="btnEnviarFormspree" class="btn-enviar">📧 Enviar respostas</button>
+        </div>
+    </div>
+    <div id="mensagemEnvio" class="mensagem-envio"></div>
+    <form id="formspreeForm" method="POST" style="display: none;">
+        <input type="text" name="nome_aluno" id="hiddenNome">
+        <input type="text" name="respostas" id="hiddenRespostas">
+        <input type="text" name="data_envio" id="hiddenData">
+        <input type="text" name="_subject" value="Atividade Transportes - Todos na Rede">
+    </form>
+    <div class="grid" id="atividades-grid"></div>
+    <div class="acao-global">
+        <button id="verificarTodosBtn" class="primario">✅ Verificar todas</button>
+        <button id="limparTodosBtn">🧽 Limpar respostas</button>
+        <button id="mostrarGabaritoBtn">🔍 Mostrar gabarito</button>
+    </div>
+    <div class="nav-links">
+        <a href="index.html">🏠 Página inicial</a>
+        <a href="frutas.html">🍎 Frutas</a>
+        <a href="escola.html">📚 Escola</a>
+    </div>
+    <div class="footer">
+        🌟 EJA + Fundamental 1 + Cultura Digital – Aprendizagem sem idade 🌟
+    </div>
+</div>
+<script>
+    const atividades = [
+        { figuraTipo: "emoji", figura: "🚗", resposta: "CARRO", dica: "automóvel" },
+        { figuraTipo: "emoji", figura: "✈️", resposta: "AVIÃO", dica: "aeronave" },
+        { figuraTipo: "emoji", figura: "🚢", resposta: "NAVIO", dica: "embarcação" },
+        { figuraTipo: "emoji", figura: "🚲", resposta: "BICICLETA", dica: "bicicleta" },
+        { figuraTipo: "emoji", figura: "🚌", resposta: "ÔNIBUS", dica: "ônibus urbano" }
+    ];
+    const frasesPersonalizadas = [
+        "Meu pai vai trabalhar de ______ todos os dias.",
+        "O ______ voa bem alto no céu.",
+        "O ______ navega pelos oceanos.",
+        "Pedro pedala sua ______ para a escola.",
+        "Pegamos o ______ para ir ao centro da cidade."
+    ];
+    let inputRefs = [];
+    function normalizarTexto(t) { return t.trim().toUpperCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^A-Z0-9]/g, ''); }
+    function renderizarAtividades() {
+        const grid = document.getElementById('atividades-grid');
+        grid.innerHTML = '';
+        inputRefs = [];
+        atividades.forEach((atividade, idx) => {
+            const card = document.createElement('div'); card.className = 'card';
+            const figuraDiv = document.createElement('div'); figuraDiv.className = 'figura';
+            figuraDiv.innerHTML = `<span class="figura-emoji">${atividade.figura}</span>`;
+            const fraseDiv = document.createElement('div'); fraseDiv.className = 'frase';
+            const partes = frasesPersonalizadas[idx].split('______');
+            let fraseHtml = '<p>';
+            for (let i = 0; i < partes.length; i++) {
+                fraseHtml += partes[i];
+                if (i < partes.length - 1) fraseHtml += `<input type="text" class="resposta" id="resp_${idx}" placeholder="______" autocomplete="off">`;
+            }
+            fraseHtml += '</p>';
+            fraseDiv.innerHTML = fraseHtml;
+            const btnVerificar = document.createElement('button'); btnVerificar.textContent = 'Verificar'; btnVerificar.className = 'btn-check';
+            const feedbackSpan = document.createElement('div'); feedbackSpan.className = 'feedback'; feedbackSpan.id = `fb_${idx}`; feedbackSpan.innerHTML = '✨ ';
+            fraseDiv.appendChild(btnVerificar); fraseDiv.appendChild(feedbackSpan);
+            card.appendChild(figuraDiv); card.appendChild(fraseDiv);
+            grid.appendChild(card);
+            const inputEl = document.getElementById(`resp_${idx}`);
+            inputRefs.push({ input: inputEl, feedback: feedbackSpan, respostaCorreta: atividade.resposta, idx });
+            btnVerificar.addEventListener('click', () => verificarIndividual(idx));
+            inputEl.addEventListener('keypress', (e) => { if(e.key === 'Enter') verificarIndividual(idx); });
+        });
+    }
+    function verificarIndividual(idx) {
+        const item = inputRefs[idx];
+        if (!item) return;
+        const digitado = item.input.value;
+        const correto = (normalizarTexto(digitado) === normalizarTexto(item.respostaCorreta));
+        if (correto) {
+            item.feedback.innerHTML = '✅ Muito bem!';
+            item.feedback.className = 'feedback correto';
+            item.input.style.borderColor = '#2b6e4c'; item.input.style.backgroundColor = '#eafaf3';
+        } else {
+            item.feedback.innerHTML = `❌ Quase! A palavra é ${item.respostaCorreta}.`;
+            item.feedback.className = 'feedback errado';
+            item.input.style.borderColor = '#f4a261'; item.input.style.backgroundColor = '#fff5ea';
+        }
+    }
+    function verificarTodas() { for(let i=0; i<inputRefs.length; i++) verificarIndividual(i); }
+    function limparTodas() {
+        for(let i=0; i<inputRefs.length; i++) {
+            const item = inputRefs[i];
+            item.input.value = '';
+            item.input.style.borderColor = '#ffd48a'; item.input.style.backgroundColor = '#fffef7';
+            item.feedback.innerHTML = '✨ '; item.feedback.className = 'feedback';
+        }
+    }
+    function mostrarGabarito() { for(let i=0; i<inputRefs.length; i++) inputRefs[i].feedback.innerHTML = `💡 Resposta: ${inputRefs[i].respostaCorreta}`; }
+    function obterRespostasFormatadas() {
+        const nome = document.getElementById('nomeAluno').value.trim() || "[não informado]";
+        let texto = `📋 ATIVIDADE TRANSPORTES - TODOS NA REDE 📋\n👨‍🎓 Aluno: ${nome}\n📅 Data: ${new Date().toLocaleString('pt-BR')}\n═`.repeat(50)+'\n\n';
+        let acertos = 0;
+        for(let i=0; i<atividades.length; i++) {
+            const resp = inputRefs[i].input.value.trim() || "[em branco]";
+            const certa = atividades[i].resposta;
+            const ok = normalizarTexto(resp) === normalizarTexto(certa);
+            if(ok) acertos++;
+            texto += `${i+1}. ${frasesPersonalizadas[i].replace('______', '________')}\n   Resposta: "${resp}" ${ok ? '✓' : '✗'} (Correta: ${certa})\n\n`;
+        }
+        texto += `═`.repeat(50)+`\n📊 Acertos: ${acertos} de ${atividades.length} (${Math.round(acertos/atividades.length*100)}%)\n✨ Atividade concluída! ✨`;
+        return { texto, acertos, total: atividades.length };
+    }
+    async function enviarViaFormspree() {
+        const nome = document.getElementById('nomeAluno').value.trim();
+        if(!nome) { mostrarMensagem('📝 Digite seu nome.', 'erro-email'); return; }
+        const { texto, acertos, total } = obterRespostasFormatadas();
+        document.getElementById('hiddenNome').value = nome;
+        document.getElementById('hiddenRespostas').value = texto;
+        document.getElementById('hiddenData').value = new Date().toLocaleString('pt-BR');
+        const form = document.getElementById('formspreeForm');
+        let acertosField = form.querySelector('input[name="acertos"]');
+        if(!acertosField) { acertosField = document.createElement('input'); acertosField.type='hidden'; acertosField.name='acertos'; form.appendChild(acertosField); }
+        acertosField.value = `${acertos}/${total}`;
+        mostrarMensagem('📤 Enviando...', 'loading');
+        try {
+            form.action = "https://formspree.io/f/xojpkvqd"; // 🔁 SUBSTITUA PELO SEU ID
+            const response = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } });
+            if(response.ok) mostrarMensagem('✅ Enviado! Professor Reginaldo receberá.', 'sucesso');
+            else mostrarMensagem('❌ Erro. Verifique Formspree.', 'erro-email');
+        } catch(e) { mostrarMensagem('❌ Erro de conexão.', 'erro-email'); }
+    }
+    function mostrarMensagem(msg, tipo) {
+        const div = document.getElementById('mensagemEnvio');
+        div.innerHTML = msg; div.className = `mensagem-envio ${tipo}`; div.style.display = 'block';
+        if(tipo !== 'loading') setTimeout(() => div.style.display = 'none', 5000);
+    }
+    window.addEventListener('DOMContentLoaded', () => {
+        renderizarAtividades();
+        document.getElementById('verificarTodosBtn').addEventListener('click', verificarTodas);
+        document.getElementById('limparTodosBtn').addEventListener('click', limparTodas);
+        document.getElementById('mostrarGabaritoBtn').addEventListener('click', mostrarGabarito);
+        document.getElementById('btnEnviarFormspree').addEventListener('click', enviarViaFormspree);
+    });
+</script>
+</body>
+</html>
