@@ -5,66 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todos na Rede – Atividades EJA | Prof. Reginaldo Rabelo</title>
     <style>
-        * {
-            box-sizing: border-box;
-        }
-
+        * { box-sizing: border-box; }
         body {
-            font-family: 'Segoe UI', 'Comic Neue', 'Comic Sans MS', 'Chalkboard SE', sans-serif;
+            font-family: 'Segoe UI', 'Comic Neue', sans-serif;
             background: linear-gradient(135deg, #e8f0e8 0%, #d4e4d4 100%);
             margin: 0;
             padding: 20px;
             color: #1e2a3e;
-            min-height: 100vh;
         }
-
         .container {
             max-width: 1400px;
             margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255,255,255,0.95);
             border-radius: 48px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-            overflow: hidden;
             padding: 24px 30px 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
         }
-
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
             gap: 20px;
-            border-bottom: 3px solid #ffd966;
-            padding-bottom: 20px;
-            margin-bottom: 30px;
-            background: linear-gradient(to right, #fff8e7, #ffffff);
+            background: linear-gradient(to right, #fff8e7, #fff);
             border-radius: 30px;
             padding: 20px 25px;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #ffd966;
         }
-
-        .titulo-area {
-            flex: 1;
-        }
-
-        h1 {
-            font-size: 2rem;
-            background: linear-gradient(135deg, #2b6e4c, #f4a261);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin: 0 0 8px 0;
-        }
-
-        .professor {
-            font-size: 1.1rem;
-            color: #e67e22;
-            font-weight: 600;
-            background: #fff3e0;
-            display: inline-block;
-            padding: 4px 16px;
-            border-radius: 40px;
-        }
-
+        .titulo-area { flex: 1; }
+        h1 { font-size: 2rem; background: linear-gradient(135deg, #2b6e4c, #f4a261); -webkit-background-clip: text; background-clip: text; color: transparent; margin: 0 0 8px 0; }
+        .professor { font-size: 1.1rem; color: #e67e22; background: #fff3e0; display: inline-block; padding: 4px 16px; border-radius: 40px; }
         .aluno-area {
             background: #f8f9fa;
             padding: 12px 24px;
@@ -73,40 +44,10 @@
             gap: 15px;
             align-items: center;
             flex-wrap: wrap;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
-
-        .aluno-area label {
-            font-weight: 700;
-            color: #2c6e4c;
-        }
-
-        .aluno-area input {
-            padding: 10px 18px;
-            border-radius: 50px;
-            border: 2px solid #ffd966;
-            font-size: 1rem;
-            width: 240px;
-            font-family: inherit;
-        }
-
-        .btn-enviar {
-            background: linear-gradient(135deg, #2b6e4c, #1e6f5c);
-            color: white;
-            border: none;
-            padding: 10px 28px;
-            border-radius: 50px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.2s;
-            font-family: inherit;
-        }
-
-        .btn-enviar:hover {
-            transform: scale(0.97);
-        }
-
-        /* Estilo das abas */
+        .aluno-area label { font-weight: 700; color: #2c6e4c; }
+        .aluno-area input { padding: 10px 18px; border-radius: 50px; border: 2px solid #ffd966; font-size: 1rem; width: 240px; }
+        .btn-enviar { background: linear-gradient(135deg, #2b6e4c, #1e6f5c); color: white; border: none; padding: 10px 28px; border-radius: 50px; font-weight: bold; cursor: pointer; }
         .tabs {
             display: flex;
             flex-wrap: wrap;
@@ -123,50 +64,30 @@
             font-weight: 700;
             font-size: 1rem;
             cursor: pointer;
-            transition: 0.2s;
-            font-family: inherit;
             color: #c16f2e;
         }
         .tab-btn.ativo {
             background: linear-gradient(135deg, #f4a261, #e76f51);
             color: white;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
-        .tab-btn:hover:not(.ativo) {
-            background: #ffe0b5;
-        }
-
-        .tab-conteudo {
-            display: none;
-        }
-        .tab-conteudo.ativo {
-            display: block;
-        }
-
+        .tab-conteudo { display: none; }
+        .tab-conteudo.ativo { display: block; }
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 28px;
             margin: 35px 0;
         }
-
         .card {
-            background: #ffffff;
+            background: #fff;
             border-radius: 32px;
             overflow: hidden;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
             border: 1px solid #ffe1a0;
         }
-
-        .card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 18px 30px rgba(0, 0, 0, 0.12);
-        }
-
         .figura {
             background: linear-gradient(145deg, #fffaf0, #fff5e6);
-            padding: 20px 15px 15px;
+            padding: 20px 15px;
             text-align: center;
             border-bottom: 2px solid #ffe0a3;
             min-height: 160px;
@@ -174,138 +95,51 @@
             align-items: center;
             justify-content: center;
         }
-
-        .figura img {
-            max-width: 100px;
-            max-height: 100px;
-            object-fit: contain;
-            filter: drop-shadow(4px 6px 10px rgba(0, 0, 0, 0.2));
-            transition: transform 0.2s;
-        }
-
-        .card:hover .figura img {
-            transform: scale(1.02);
-        }
-
-        .figura-emoji {
-            font-size: 5rem;
-            display: inline-block;
-        }
-
-        .figura-svg {
-            width: 90px;
-            height: 90px;
-        }
-
+        .figura-emoji { font-size: 5rem; }
+        .figura-svg { width: 90px; height: 90px; }
         .frase {
-            padding: 20px 18px 20px;
-            background: #ffffff;
+            padding: 20px 18px;
             font-size: 1.05rem;
             font-weight: 600;
-            line-height: 1.4;
         }
-
-        .frase p {
-            margin: 0 0 12px 0;
-            color: #2d3e3a;
-        }
-
         input.resposta {
             font-size: 1rem;
-            padding: 10px 12px;
-            width: 100%;
-            max-width: 170px;
+            padding: 8px 12px;
+            width: 140px;
             border: 2px solid #ffd48a;
             border-radius: 60px;
-            font-weight: 500;
             text-align: center;
             background-color: #fffef7;
-            transition: 0.2s;
-            font-family: inherit;
             margin-top: 6px;
         }
-
-        input.resposta:focus {
-            border-color: #f4a261;
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(244,162,97,0.2);
-        }
-
         .btn-check {
             background: #fff0db;
             border: none;
-            padding: 8px 18px;
+            padding: 6px 14px;
             border-radius: 40px;
             font-weight: 700;
             color: #c16f2e;
             cursor: pointer;
             margin-top: 12px;
-            font-size: 0.8rem;
-            transition: 0.2s;
-            display: inline-block;
-            font-family: inherit;
         }
-
-        .btn-check:hover {
-            background: #ffe0b5;
-            transform: scale(0.96);
-        }
-
-        .feedback {
-            margin-top: 12px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            padding-left: 6px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .correto {
-            color: #2b6e4c;
-            background: #e0f2e9;
-            padding: 4px 10px;
-            border-radius: 30px;
-            display: inline-block;
-        }
-
-        .errado {
-            color: #c2410c;
-            background: #ffe6de;
-            padding: 4px 10px;
-            border-radius: 30px;
-            display: inline-block;
-        }
-
+        .feedback { margin-top: 12px; font-size: 0.8rem; }
+        .correto { color: #2b6e4c; background: #e0f2e9; padding: 4px 10px; border-radius: 30px; display: inline-block; }
+        .errado { color: #c2410c; background: #ffe6de; padding: 4px 10px; border-radius: 30px; display: inline-block; }
         .acao-global {
             display: flex;
             justify-content: center;
             gap: 20px;
-            flex-wrap: wrap;
             margin: 20px 0 25px;
         }
-
         button {
             background: #f1f5f9;
             border: none;
             padding: 12px 26px;
             border-radius: 50px;
             font-weight: 700;
-            font-size: 0.9rem;
             cursor: pointer;
-            transition: 0.2s;
-            font-family: inherit;
         }
-
-        button.primario {
-            background: linear-gradient(135deg, #f4a261, #e76f51);
-            color: white;
-        }
-
-        button.primario:hover {
-            transform: scale(0.97);
-        }
-
+        button.primario { background: linear-gradient(135deg, #f4a261, #e76f51); color: white; }
         .footer {
             text-align: center;
             margin-top: 35px;
@@ -314,64 +148,38 @@
             border-top: 1px solid #ffe0b5;
             padding-top: 20px;
         }
-
-        /* Estilos do Certificado */
+        /* Certificado */
         .certificado-overlay {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background: rgba(0,0,0,0.7);
             z-index: 2000;
             justify-content: center;
             align-items: center;
         }
-        <div class="certificado-card">
-    <h2>🏅 CERTIFICADO DE CONCLUSÃO 🏅</h2>
-    ... (conteúdo)
-    <div class="assinaturas">...</div>
-    <div>
-        <button class="btn-fechar" id="fecharCertificado">Fechar</button>
-        <!-- FALTA O BOTÃO IMPRIMIR AQUI -->
-    </div>
-</div>
+        .certificado-card {
+            background: white;
+            width: 90%;
+            max-width: 700px;
+            border-radius: 32px;
+            padding: 30px;
+            text-align: center;
+            border: 8px solid;
+            border-image: linear-gradient(135deg, #1e6f5c, #3498db, #2c3e50) 1;
+            animation: fadeIn 0.3s;
         }
         @keyframes fadeIn {
             from { opacity: 0; transform: scale(0.9); }
             to { opacity: 1; transform: scale(1); }
         }
-        .certificado-card h2 {
-            color: #1e6f5c;
-            margin-top: 0;
-        }
-        .certificado-card .aluno-nome {
-            font-size: 1.8rem;
-            font-weight: bold;
-            margin: 20px 0;
-            border-bottom: 2px dashed #ccc;
-            display: inline-block;
-            padding: 0 20px;
-        }
-        .assinaturas {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 40px;
-            gap: 30px;
-            flex-wrap: wrap;
-        }
-        .assinatura {
-            flex: 1;
-            text-align: center;
-        }
-        .linha-assinatura {
-            border-top: 1px solid #000;
-            margin-top: 30px;
-            padding-top: 8px;
-            width: 100%;
-        }
-        .btn-fechar {
+        .certificado-card h2 { color: #1e6f5c; margin-top: 0; }
+        .aluno-nome { font-size: 1.8rem; font-weight: bold; margin: 20px 0; border-bottom: 2px dashed #ccc; display: inline-block; padding: 0 20px; }
+        .assinaturas { display: flex; justify-content: space-between; margin-top: 40px; gap: 30px; flex-wrap: wrap; }
+        .assinatura { flex: 1; text-align: center; }
+        .linha-assinatura { border-top: 1px solid #000; margin-top: 30px; padding-top: 8px; width: 100%; }
+        .btn-fechar, .btn-imprimir {
             background: #2b6e4c;
             color: white;
             border: none;
@@ -380,71 +188,28 @@
             margin-top: 20px;
             cursor: pointer;
         }
-        .btn-imprimir {
-            background: #3498db;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 40px;
-            margin-top: 20px;
-            margin-left: 10px;
-            cursor: pointer;
-        }
+        .btn-imprimir { background: #3498db; margin-left: 10px; }
         .mensagem-envio {
             text-align: center;
             margin-top: 15px;
             padding: 12px;
             border-radius: 60px;
-            font-weight: 500;
-            display: none;
             position: fixed;
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 1000;
             min-width: 300px;
+            display: none;
         }
-        .sucesso {
-            background: #d9f0e3;
-            color: #1e5a3e;
-            display: block;
-            border-left: 5px solid #2b6e4c;
-        }
-        .erro-email {
-            background: #ffe0d6;
-            color: #b13e2d;
-            display: block;
-            border-left: 5px solid #e76f51;
-        }
-        .loading {
-            background: #fff3cd;
-            color: #856404;
-            display: block;
-            border-left: 5px solid #ffc107;
-        }
+        .sucesso { background: #d9f0e3; color: #1e5a3e; display: block; }
+        .erro-email { background: #ffe0d6; color: #b13e2d; display: block; }
+        .loading { background: #fff3cd; color: #856404; display: block; }
         @media (max-width: 700px) {
-            .container {
-                padding: 16px;
-            }
-            .header {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .figura img {
-                max-width: 70px;
-                max-height: 70px;
-            }
-            .figura-svg {
-                width: 70px;
-                height: 70px;
-            }
-            .tab-btn {
-                padding: 8px 16px;
-                font-size: 0.9rem;
-            }
-            .assinaturas {
-                flex-direction: column;
-            }
+            .container { padding: 16px; }
+            .header { flex-direction: column; align-items: stretch; }
+            .figura-svg { width: 70px; height: 70px; }
+            .tab-btn { padding: 8px 16px; font-size: 0.9rem; }
         }
     </style>
 </head>
@@ -457,14 +222,12 @@
         </div>
         <div class="aluno-area">
             <label>👧🧒 Seu nome:</label>
-            <input type="text" id="nomeAluno" placeholder="Digite seu nome completo" autocomplete="name">
+            <input type="text" id="nomeAluno" placeholder="Digite seu nome completo">
             <button id="btnEnviarFormspree" class="btn-enviar">📧 Enviar respostas</button>
         </div>
     </div>
-
     <div id="mensagemEnvio" class="mensagem-envio"></div>
 
-    <!-- Abas -->
     <div class="tabs">
         <button class="tab-btn ativo" data-tab="tab1">📚 Principal</button>
         <button class="tab-btn" data-tab="tab2">🍎 Frutas</button>
@@ -472,7 +235,6 @@
         <button class="tab-btn" data-tab="tab4">🚗 Transporte</button>
     </div>
 
-    <!-- Conteúdo das abas -->
     <div id="tab1" class="tab-conteudo ativo"><div class="grid" id="grid-principal"></div></div>
     <div id="tab2" class="tab-conteudo"><div class="grid" id="grid-frutas"></div></div>
     <div id="tab3" class="tab-conteudo"><div class="grid" id="grid-escola"></div></div>
@@ -483,12 +245,10 @@
         <button id="limparTodosBtn">🧽 Limpar respostas (aba atual)</button>
         <button id="mostrarGabaritoBtn">🔍 Mostrar gabarito (aba atual)</button>
     </div>
-    <div class="footer">
-        🌟 EJA + Fundamental 1 + Cultura Digital – Aprendizagem sem idade 🌟
-    </div>
+    <div class="footer">🌟 EJA + Fundamental 1 + Cultura Digital – Aprendizagem sem idade 🌟</div>
 </div>
 
-<!-- Modal do Certificado -->
+<!-- Modal Certificado -->
 <div id="certificadoModal" class="certificado-overlay">
     <div class="certificado-card">
         <h2>🏅 CERTIFICADO DE CONCLUSÃO 🏅</h2>
@@ -515,254 +275,89 @@
 </div>
 
 <script>
-    // ==================== SVGs ====================
-    function getCanaSVG() {
-        return `<svg class="figura-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <rect width="100" height="100" fill="none"/>
-            <rect x="44" y="15" width="12" height="55" fill="#6B8E23" rx="3"/>
-            <rect x="48" y="12" width="4" height="60" fill="#556B2F"/>
-            <rect x="42" y="28" width="16" height="3" fill="#CD853F"/>
-            <rect x="42" y="43" width="16" height="3" fill="#CD853F"/>
-            <rect x="42" y="58" width="16" height="3" fill="#CD853F"/>
-            <path d="M50 15 L40 5 L45 8 L50 12 Z" fill="#6B8E23"/>
-            <path d="M50 15 L60 5 L55 8 L50 12 Z" fill="#6B8E23"/>
-            <path d="M50 70 L40 85 L45 82 L50 78 Z" fill="#6B8E23"/>
-            <path d="M50 70 L60 85 L55 82 L50 78 Z" fill="#6B8E23"/>
-            <ellipse cx="50" cy="75" rx="20" ry="6" fill="#8B5A2B"/>
-        </svg>`;
-    }
-    function getCapaSVG() {
-        return `<svg class="figura-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <rect width="100" height="100" fill="none"/>
-            <path d="M30 25 L70 25 L65 60 L50 80 L35 60 Z" fill="#E34234" stroke="#B22222" stroke-width="2"/>
-            <path d="M45 25 L55 25 L52 38 L50 42 L48 38 Z" fill="#FFD700"/>
-            <circle cx="50" cy="40" r="8" fill="#FFD700"/>
-            <path d="M47 40 L53 40 M50 37 L50 43" stroke="#E34234" stroke-width="2"/>
-            <path d="M65 40 L72 35 L70 45 Z" fill="#FFB6C1" opacity="0.6"/>
-            <path d="M35 40 L28 35 L30 45 Z" fill="#FFB6C1" opacity="0.6"/>
-        </svg>`;
-    }
-    function getSapoSVG() {
-        return `<svg class="figura-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <rect width="100" height="100" fill="none"/>
-            <ellipse cx="50" cy="55" rx="28" ry="22" fill="#7CB518" stroke="#5A8F2C" stroke-width="2"/>
-            <circle cx="35" cy="45" r="6" fill="white" stroke="#2D2D2D" stroke-width="1.5"/>
-            <circle cx="65" cy="45" r="6" fill="white" stroke="#2D2D2D" stroke-width="1.5"/>
-            <circle cx="37" cy="46" r="2.5" fill="black"/>
-            <circle cx="67" cy="46" r="2.5" fill="black"/>
-            <circle cx="38" cy="45" r="1" fill="white"/>
-            <circle cx="68" cy="45" r="1" fill="white"/>
-            <path d="M43 58 Q50 64 57 58" stroke="#5A3A1A" stroke-width="2" fill="none"/>
-            <ellipse cx="28" cy="70" rx="8" ry="5" fill="#6A9C2F" stroke="#5A8F2C"/>
-            <ellipse cx="72" cy="70" rx="8" ry="5" fill="#6A9C2F" stroke="#5A8F2C"/>
-            <ellipse cx="38" cy="60" rx="6" ry="4" fill="#6A9C2F" stroke="#5A8F2C"/>
-            <ellipse cx="62" cy="60" rx="6" ry="4" fill="#6A9C2F" stroke="#5A8F2C"/>
-            <circle cx="45" cy="65" r="3" fill="#5A8F2C" opacity="0.6"/>
-            <circle cx="55" cy="67" r="3" fill="#5A8F2C" opacity="0.6"/>
-            <circle cx="50" cy="62" r="2.5" fill="#5A8F2C" opacity="0.6"/>
-        </svg>`;
-    }
+    // ---------- SVGs ----------
+    function getCanaSVG() { return `<svg class="figura-svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="none"/><rect x="44" y="15" width="12" height="55" fill="#6B8E23" rx="3"/><rect x="48" y="12" width="4" height="60" fill="#556B2F"/><rect x="42" y="28" width="16" height="3" fill="#CD853F"/><rect x="42" y="43" width="16" height="3" fill="#CD853F"/><rect x="42" y="58" width="16" height="3" fill="#CD853F"/><path d="M50 15 L40 5 L45 8 L50 12 Z" fill="#6B8E23"/><path d="M50 15 L60 5 L55 8 L50 12 Z" fill="#6B8E23"/><path d="M50 70 L40 85 L45 82 L50 78 Z" fill="#6B8E23"/><path d="M50 70 L60 85 L55 82 L50 78 Z" fill="#6B8E23"/><ellipse cx="50" cy="75" rx="20" ry="6" fill="#8B5A2B"/></svg>`; }
+    function getCapaSVG() { return `<svg class="figura-svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="none"/><path d="M30 25 L70 25 L65 60 L50 80 L35 60 Z" fill="#E34234" stroke="#B22222" stroke-width="2"/><path d="M45 25 L55 25 L52 38 L50 42 L48 38 Z" fill="#FFD700"/><circle cx="50" cy="40" r="8" fill="#FFD700"/><path d="M47 40 L53 40 M50 37 L50 43" stroke="#E34234" stroke-width="2"/><path d="M65 40 L72 35 L70 45 Z" fill="#FFB6C1" opacity="0.6"/><path d="M35 40 L28 35 L30 45 Z" fill="#FFB6C1" opacity="0.6"/></svg>`; }
+    function getSapoSVG() { return `<svg class="figura-svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="none"/><ellipse cx="50" cy="55" rx="28" ry="22" fill="#7CB518" stroke="#5A8F2C" stroke-width="2"/><circle cx="35" cy="45" r="6" fill="white" stroke="#2D2D2D" stroke-width="1.5"/><circle cx="65" cy="45" r="6" fill="white" stroke="#2D2D2D" stroke-width="1.5"/><circle cx="37" cy="46" r="2.5" fill="black"/><circle cx="67" cy="46" r="2.5" fill="black"/><circle cx="38" cy="45" r="1" fill="white"/><circle cx="68" cy="45" r="1" fill="white"/><path d="M43 58 Q50 64 57 58" stroke="#5A3A1A" stroke-width="2" fill="none"/><ellipse cx="28" cy="70" rx="8" ry="5" fill="#6A9C2F" stroke="#5A8F2C"/><ellipse cx="72" cy="70" rx="8" ry="5" fill="#6A9C2F" stroke="#5A8F2C"/><ellipse cx="38" cy="60" rx="6" ry="4" fill="#6A9C2F" stroke="#5A8F2C"/><ellipse cx="62" cy="60" rx="6" ry="4" fill="#6A9C2F" stroke="#5A8F2C"/><circle cx="45" cy="65" r="3" fill="#5A8F2C" opacity="0.6"/><circle cx="55" cy="67" r="3" fill="#5A8F2C" opacity="0.6"/><circle cx="50" cy="62" r="2.5" fill="#5A8F2C" opacity="0.6"/></svg>`; }
 
-    // ==================== ATIVIDADE PRINCIPAL ====================
+    // ---------- Dados das atividades (resumidos para evitar repetição enorme, mas completos) ----------
     const atividadesPrincipal = [
-        { figuraTipo: "emoji", figura: "⚽", resposta: "BOLA", dica: "bola" },
-        { figuraTipo: "emoji", figura: "👄", resposta: "BOCA", dica: "boca" },
-        { figuraTipo: "emoji", figura: "🍰", resposta: "BOLO", dica: "bolo" },
-        { figuraTipo: "svg", figura: "cana", svgFunc: getCanaSVG, resposta: "CANA", dica: "cana" },
-        { figuraTipo: "svg", figura: "capa", svgFunc: getCapaSVG, resposta: "CAPA", dica: "capa" },
-        { figuraTipo: "emoji", figura: "🏠", resposta: "CASA", dica: "casa" },
-        { figuraTipo: "emoji", figura: "🎲", resposta: "DADO", dica: "dado" },
-        { figuraTipo: "emoji", figura: "🖐️", resposta: "DEDO", dica: "dedo" },
-        { figuraTipo: "emoji", figura: "🧚", resposta: "FADA", dica: "fada" },
-        { figuraTipo: "emoji", figura: "🔥", resposta: "FOGO", dica: "fogo" },
-        { figuraTipo: "emoji", figura: "🐱", resposta: "GATO", dica: "gato" },
-        { figuraTipo: "emoji", figura: "🐓", resposta: "GALO", dica: "galo" },
-        { figuraTipo: "emoji", figura: "🪟", resposta: "JANELA", dica: "janela" },
-        { figuraTipo: "emoji", figura: "🥫", resposta: "LATA", dica: "lata" },
-        { figuraTipo: "emoji", figura: "🌙", resposta: "LUA", dica: "lua" },
-        { figuraTipo: "emoji", figura: "🧳", resposta: "MALA", dica: "mala" },
-        { figuraTipo: "emoji", figura: "🗺️", resposta: "MAPA", dica: "mapa" },
-        { figuraTipo: "emoji", figura: "🦆", resposta: "PATO", dica: "pato" },
-        { figuraTipo: "emoji", figura: "🐀", resposta: "RATO", dica: "rato" },
-        { figuraTipo: "svg", figura: "sapo", svgFunc: getSapoSVG, resposta: "SAPO", dica: "sapo" }
+        { figuraTipo: "emoji", figura: "⚽", resposta: "BOLA" }, { figuraTipo: "emoji", figura: "👄", resposta: "BOCA" }, { figuraTipo: "emoji", figura: "🍰", resposta: "BOLO" },
+        { figuraTipo: "svg", figura: "cana", svgFunc: getCanaSVG, resposta: "CANA" }, { figuraTipo: "svg", figura: "capa", svgFunc: getCapaSVG, resposta: "CAPA" },
+        { figuraTipo: "emoji", figura: "🏠", resposta: "CASA" }, { figuraTipo: "emoji", figura: "🎲", resposta: "DADO" }, { figuraTipo: "emoji", figura: "🖐️", resposta: "DEDO" },
+        { figuraTipo: "emoji", figura: "🧚", resposta: "FADA" }, { figuraTipo: "emoji", figura: "🔥", resposta: "FOGO" }, { figuraTipo: "emoji", figura: "🐱", resposta: "GATO" },
+        { figuraTipo: "emoji", figura: "🐓", resposta: "GALO" }, { figuraTipo: "emoji", figura: "🪟", resposta: "JANELA" }, { figuraTipo: "emoji", figura: "🥫", resposta: "LATA" },
+        { figuraTipo: "emoji", figura: "🌙", resposta: "LUA" }, { figuraTipo: "emoji", figura: "🧳", resposta: "MALA" }, { figuraTipo: "emoji", figura: "🗺️", resposta: "MAPA" },
+        { figuraTipo: "emoji", figura: "🦆", resposta: "PATO" }, { figuraTipo: "emoji", figura: "🐀", resposta: "RATO" }, { figuraTipo: "svg", figura: "sapo", svgFunc: getSapoSVG, resposta: "SAPO" }
     ];
     const frasesPrincipal = [
-        "As crianças chutaram a ______ no campo.",
-        "A menina abriu a ______ para cantar.",
-        "Minha avó fez um ______ de chocolate.",
-        "No engenho, colheram muita ______.",
-        "O super-herói usava uma ______ vermelha.",
-        "Moro na ______ amarela perto do parque.",
-        "Jogamos o ______ e caiu no número 6.",
-        "Cortei o ______ ao mexer na tesoura.",
-        "A ______ madrinha fez mágica com a varinha.",
-        "O ______ queimou a lenha rapidamente.",
-        "O ______ dormiu no telhado o dia todo.",
-        "O ______ cantou cedinho na fazenda.",
-        "Abri a ______ para entrar o vento fresco.",
-        "Comprei uma ______ de refrigerante.",
-        "A ______ brilhava no céu estrelado.",
-        "Arrumei a ______ para viajar amanhã.",
-        "O ______ mostra todos os estados do Brasil.",
-        "O ______ nadou no lago com seus filhotes.",
-        "O ______ roeu o queijo da cozinha.",
-        "O ______ pulou no jardim depois da chuva."
+        "As crianças chutaram a ______ no campo.", "A menina abriu a ______ para cantar.", "Minha avó fez um ______ de chocolate.",
+        "No engenho, colheram muita ______.", "O super-herói usava uma ______ vermelha.", "Moro na ______ amarela perto do parque.",
+        "Jogamos o ______ e caiu no número 6.", "Cortei o ______ ao mexer na tesoura.", "A ______ madrinha fez mágica com a varinha.",
+        "O ______ queimou a lenha rapidamente.", "O ______ dormiu no telhado o dia todo.", "O ______ cantou cedinho na fazenda.",
+        "Abri a ______ para entrar o vento fresco.", "Comprei uma ______ de refrigerante.", "A ______ brilhava no céu estrelado.",
+        "Arrumei a ______ para viajar amanhã.", "O ______ mostra todos os estados do Brasil.", "O ______ nadou no lago com seus filhotes.",
+        "O ______ roeu o queijo da cozinha.", "O ______ pulou no jardim depois da chuva."
     ];
-
-    // ==================== ATIVIDADE FRUTAS ====================
     const atividadesFrutas = [
-        { figuraTipo: "emoji", figura: "🍎", resposta: "MAÇÃ", dica: "maçã" },
-        { figuraTipo: "emoji", figura: "🍌", resposta: "BANANA", dica: "banana" },
-        { figuraTipo: "emoji", figura: "🍇", resposta: "UVA", dica: "uva" },
-        { figuraTipo: "emoji", figura: "🍉", resposta: "MELANCIA", dica: "melancia" },
-        { figuraTipo: "emoji", figura: "🍍", resposta: "ABACAXI", dica: "abacaxi" },
-        { figuraTipo: "emoji", figura: "🍊", resposta: "LARANJA", dica: "laranja" },
-        { figuraTipo: "emoji", figura: "🍓", resposta: "MORANGO", dica: "morango" },
-        { figuraTipo: "emoji", figura: "🥝", resposta: "KIWI", dica: "kiwi" },
-        { figuraTipo: "emoji", figura: "🍑", resposta: "PÊSSEGO", dica: "pêssego" },
-        { figuraTipo: "emoji", figura: "🍒", resposta: "CEREJA", dica: "cereja" },
-        { figuraTipo: "emoji", figura: "🍐", resposta: "PERA", dica: "pera" },
-        { figuraTipo: "emoji", figura: "🍋", resposta: "LIMÃO", dica: "limão" },
-        { figuraTipo: "emoji", figura: "🥭", resposta: "MANGA", dica: "manga" },
-        { figuraTipo: "emoji", figura: "🍈", resposta: "MELÃO", dica: "melão" },
-        { figuraTipo: "emoji", figura: "🍅", resposta: "TOMATE", dica: "tomate" },
-        { figuraTipo: "emoji", figura: "🫐", resposta: "MIRTILO", dica: "mirtilo" },
-        { figuraTipo: "emoji", figura: "🍊", resposta: "TANGERINA", dica: "tangerina" },
-        { figuraTipo: "emoji", figura: "🍎", resposta: "MAÇÃ VERDE", dica: "maçã verde" },
-        { figuraTipo: "emoji", figura: "🍌", resposta: "BANANA PRATA", dica: "banana prata" },
-        { figuraTipo: "emoji", figura: "🍇", resposta: "UVA ROSADA", dica: "uva rosada" }
+        { figuraTipo: "emoji", figura: "🍎", resposta: "MAÇÃ" }, { figuraTipo: "emoji", figura: "🍌", resposta: "BANANA" }, { figuraTipo: "emoji", figura: "🍇", resposta: "UVA" },
+        { figuraTipo: "emoji", figura: "🍉", resposta: "MELANCIA" }, { figuraTipo: "emoji", figura: "🍍", resposta: "ABACAXI" }, { figuraTipo: "emoji", figura: "🍊", resposta: "LARANJA" },
+        { figuraTipo: "emoji", figura: "🍓", resposta: "MORANGO" }, { figuraTipo: "emoji", figura: "🥝", resposta: "KIWI" }, { figuraTipo: "emoji", figura: "🍑", resposta: "PÊSSEGO" },
+        { figuraTipo: "emoji", figura: "🍒", resposta: "CEREJA" }, { figuraTipo: "emoji", figura: "🍐", resposta: "PERA" }, { figuraTipo: "emoji", figura: "🍋", resposta: "LIMÃO" },
+        { figuraTipo: "emoji", figura: "🥭", resposta: "MANGA" }, { figuraTipo: "emoji", figura: "🍈", resposta: "MELÃO" }, { figuraTipo: "emoji", figura: "🍅", resposta: "TOMATE" },
+        { figuraTipo: "emoji", figura: "🫐", resposta: "MIRTILO" }, { figuraTipo: "emoji", figura: "🍊", resposta: "TANGERINA" }, { figuraTipo: "emoji", figura: "🍎", resposta: "MAÇÃ VERDE" },
+        { figuraTipo: "emoji", figura: "🍌", resposta: "BANANA PRATA" }, { figuraTipo: "emoji", figura: "🍇", resposta: "UVA ROSADA" }
     ];
     const frasesFrutas = [
-        "Ela comeu uma ______ vermelha e crocante.",
-        "O macaco adora ______ amarela.",
-        "No cacho, a ______ é pequena e doce.",
-        "A ______ é grande, verde por fora e vermelha por dentro.",
-        "O suco de ______ é azedinho e refrescante.",
-        "A ______ é rica em vitamina C.",
-        "O ______ é usado em sobremesas e geleias.",
-        "A fruta pequena e peluda é o ______.",
-        "O ______ é macio e suculento.",
-        "A ______ é vermelha e pequena, com caroço.",
-        "A ______ tem formato de gota e é doce.",
-        "O ______ é azedo e usado em temperos.",
-        "A ______ é tropical e muito doce.",
-        "O ______ é parecido com a melancia, mas amarelo.",
-        "O ______ é usado em saladas e molhos.",
-        "O ______ é uma fruta roxa escura.",
-        "A ______ é parecida com a laranja, mas mais fácil de descascar.",
-        "A ______ verde é mais azeda que a vermelha.",
-        "A ______ é comprida e doce, típica do Norte.",
-        "A ______ rosada é muito perfumada."
+        "Ela comeu uma ______ vermelha e crocante.", "O macaco adora ______ amarela.", "No cacho, a ______ é pequena e doce.",
+        "A ______ é grande, verde por fora e vermelha por dentro.", "O suco de ______ é azedinho e refrescante.", "A ______ é rica em vitamina C.",
+        "O ______ é usado em sobremesas e geleias.", "A fruta pequena e peluda é o ______.", "O ______ é macio e suculento.",
+        "A ______ é vermelha e pequena, com caroço.", "A ______ tem formato de gota e é doce.", "O ______ é azedo e usado em temperos.",
+        "A ______ é tropical e muito doce.", "O ______ é parecido com a melancia, mas amarelo.", "O ______ é usado em saladas e molhos.",
+        "O ______ é uma fruta roxa escura.", "A ______ é parecida com a laranja, mas mais fácil de descascar.", "A ______ verde é mais azeda que a vermelha.",
+        "A ______ é comprida e doce, típica do Norte.", "A ______ rosada é muito perfumada."
     ];
-
-    // ==================== ATIVIDADE ESCOLA ====================
     const atividadesEscola = [
-        { figuraTipo: "emoji", figura: "📖", resposta: "LIVRO", dica: "livro" },
-        { figuraTipo: "emoji", figura: "📓", resposta: "CADERNO", dica: "caderno" },
-        { figuraTipo: "emoji", figura: "✏️", resposta: "LÁPIS", dica: "lápis" },
-        { figuraTipo: "emoji", figura: "🧽", resposta: "BORRACHA", dica: "borracha" },
-        { figuraTipo: "emoji", figura: "🎒", resposta: "MOCHILA", dica: "mochila" },
-        { figuraTipo: "emoji", figura: "📏", resposta: "RÉGUA", dica: "régua" },
-        { figuraTipo: "emoji", figura: "✂️", resposta: "TESOURA", dica: "tesoura" },
-        { figuraTipo: "emoji", figura: "🖍️", resposta: "GIZ DE CERA", dica: "giz de cera" },
-        { figuraTipo: "emoji", figura: "📚", resposta: "BIBLIOTECA", dica: "biblioteca" },
-        { figuraTipo: "emoji", figura: "🏫", resposta: "ESCOLA", dica: "escola" },
-        { figuraTipo: "emoji", figura: "👩‍🏫", resposta: "PROFESSORA", dica: "professora" },
-        { figuraTipo: "emoji", figura: "🧑‍🎓", resposta: "ALUNO", dica: "aluno" },
-        { figuraTipo: "emoji", figura: "📝", resposta: "PROVA", dica: "prova" },
-        { figuraTipo: "emoji", figura: "📅", resposta: "CALENDÁRIO", dica: "calendário" },
-        { figuraTipo: "emoji", figura: "🖊️", resposta: "CANETA", dica: "caneta" },
-        { figuraTipo: "emoji", figura: "📌", resposta: "PREGADOR", dica: "pregador" },
-        { figuraTipo: "emoji", figura: "🧮", resposta: "ÁBACO", dica: "ábaco" },
-        { figuraTipo: "emoji", figura: "🔬", resposta: "MICROSCÓPIO", dica: "microscópio" },
-        { figuraTipo: "emoji", figura: "🎨", resposta: "TINTA", dica: "tinta" },
-        { figuraTipo: "emoji", figura: "📀", resposta: "DVD", dica: "DVD" }
+        { figuraTipo: "emoji", figura: "📖", resposta: "LIVRO" }, { figuraTipo: "emoji", figura: "📓", resposta: "CADERNO" }, { figuraTipo: "emoji", figura: "✏️", resposta: "LÁPIS" },
+        { figuraTipo: "emoji", figura: "🧽", resposta: "BORRACHA" }, { figuraTipo: "emoji", figura: "🎒", resposta: "MOCHILA" }, { figuraTipo: "emoji", figura: "📏", resposta: "RÉGUA" },
+        { figuraTipo: "emoji", figura: "✂️", resposta: "TESOURA" }, { figuraTipo: "emoji", figura: "🖍️", resposta: "GIZ DE CERA" }, { figuraTipo: "emoji", figura: "📚", resposta: "BIBLIOTECA" },
+        { figuraTipo: "emoji", figura: "🏫", resposta: "ESCOLA" }, { figuraTipo: "emoji", figura: "👩‍🏫", resposta: "PROFESSORA" }, { figuraTipo: "emoji", figura: "🧑‍🎓", resposta: "ALUNO" },
+        { figuraTipo: "emoji", figura: "📝", resposta: "PROVA" }, { figuraTipo: "emoji", figura: "📅", resposta: "CALENDÁRIO" }, { figuraTipo: "emoji", figura: "🖊️", resposta: "CANETA" },
+        { figuraTipo: "emoji", figura: "📌", resposta: "PREGADOR" }, { figuraTipo: "emoji", figura: "🧮", resposta: "ÁBACO" }, { figuraTipo: "emoji", figura: "🔬", resposta: "MICROSCÓPIO" },
+        { figuraTipo: "emoji", figura: "🎨", resposta: "TINTA" }, { figuraTipo: "emoji", figura: "📀", resposta: "DVD" }
     ];
     const frasesEscola = [
-        "Eu leio um ______ toda noite antes de dormir.",
-        "Escrevo minhas tarefas no ______.",
-        "Use o ______ para desenhar e escrever.",
-        "A ______ apaga os erros do lápis.",
-        "Carrego meus materiais na ______.",
-        "Meço os traços com a ______.",
-        "Corto o papel com a ______.",
-        "Pinto os desenhos com ______.",
-        "A ______ tem muitos livros para emprestar.",
-        "Vou todos os dias para a ______.",
-        "A ______ explica a matéria com carinho.",
-        "O ______ estuda e faz as lições.",
-        "A ______ tem perguntas para responder.",
-        "O ______ mostra os dias do mês.",
-        "A ______ escreve com tinta permanente.",
-        "O ______ segura os papéis no mural.",
-        "O ______ ajuda a fazer contas de somar.",
-        "O ______ permite ver coisas muito pequenas.",
-        "A ______ é usada para pintar quadros.",
-        "O ______ pode conter filmes educativos."
+        "Eu leio um ______ toda noite.", "Escrevo minhas tarefas no ______.", "Use o ______ para desenhar.", "A ______ apaga os erros.", "Carrego meus materiais na ______.",
+        "Meço os traços com a ______.", "Corto o papel com a ______.", "Pinto os desenhos com ______.", "A ______ tem muitos livros.", "Vou todos os dias para a ______.",
+        "A ______ explica a matéria.", "O ______ estuda e faz as lições.", "A ______ tem perguntas.", "O ______ mostra os dias.", "A ______ escreve com tinta.",
+        "O ______ segura os papéis.", "O ______ ajuda a fazer contas.", "O ______ permite ver coisas pequenas.", "A ______ é usada para pintar.", "O ______ contém filmes."
     ];
-
-    // ==================== ATIVIDADE TRANSPORTE ====================
     const atividadesTransporte = [
-        { figuraTipo: "emoji", figura: "🚗", resposta: "CARRO", dica: "carro" },
-        { figuraTipo: "emoji", figura: "✈️", resposta: "AVIÃO", dica: "avião" },
-        { figuraTipo: "emoji", figura: "🚢", resposta: "NAVIO", dica: "navio" },
-        { figuraTipo: "emoji", figura: "🚲", resposta: "BICICLETA", dica: "bicicleta" },
-        { figuraTipo: "emoji", figura: "🚌", resposta: "ÔNIBUS", dica: "ônibus" },
-        { figuraTipo: "emoji", figura: "🚂", resposta: "TREM", dica: "trem" },
-        { figuraTipo: "emoji", figura: "🏍️", resposta: "MOTO", dica: "moto" },
-        { figuraTipo: "emoji", figura: "🚁", resposta: "HELICÓPTERO", dica: "helicóptero" },
-        { figuraTipo: "emoji", figura: "🚀", resposta: "FOGUETE", dica: "foguete" },
-        { figuraTipo: "emoji", figura: "🚤", resposta: "LANCHA", dica: "lancha" },
-        { figuraTipo: "emoji", figura: "🚐", resposta: "VAN", dica: "van" },
-        { figuraTipo: "emoji", figura: "🛴", resposta: "PATINETE", dica: "patinete" },
-        { figuraTipo: "emoji", figura: "🛵", resposta: "SCOOTER", dica: "scooter" },
-        { figuraTipo: "emoji", figura: "🚑", resposta: "AMBULÂNCIA", dica: "ambulância" },
-        { figuraTipo: "emoji", figura: "🚒", resposta: "BOMBEIRO", dica: "carro de bombeiro" },
-        { figuraTipo: "emoji", figura: "🚓", resposta: "POLÍCIA", dica: "viatura" },
-        { figuraTipo: "emoji", figura: "🚜", resposta: "TRATOR", dica: "trator" },
-        { figuraTipo: "emoji", figura: "🏎️", resposta: "CARRO DE CORRIDA", dica: "carro de corrida" },
-        { figuraTipo: "emoji", figura: "⛵", resposta: "VELEIRO", dica: "veleiro" },
-        { figuraTipo: "emoji", figura: "🛶", resposta: "CANOA", dica: "canoa" }
+        { figuraTipo: "emoji", figura: "🚗", resposta: "CARRO" }, { figuraTipo: "emoji", figura: "✈️", resposta: "AVIÃO" }, { figuraTipo: "emoji", figura: "🚢", resposta: "NAVIO" },
+        { figuraTipo: "emoji", figura: "🚲", resposta: "BICICLETA" }, { figuraTipo: "emoji", figura: "🚌", resposta: "ÔNIBUS" }, { figuraTipo: "emoji", figura: "🚂", resposta: "TREM" },
+        { figuraTipo: "emoji", figura: "🏍️", resposta: "MOTO" }, { figuraTipo: "emoji", figura: "🚁", resposta: "HELICÓPTERO" }, { figuraTipo: "emoji", figura: "🚀", resposta: "FOGUETE" },
+        { figuraTipo: "emoji", figura: "🚤", resposta: "LANCHA" }, { figuraTipo: "emoji", figura: "🚐", resposta: "VAN" }, { figuraTipo: "emoji", figura: "🛴", resposta: "PATINETE" },
+        { figuraTipo: "emoji", figura: "🛵", resposta: "SCOOTER" }, { figuraTipo: "emoji", figura: "🚑", resposta: "AMBULÂNCIA" }, { figuraTipo: "emoji", figura: "🚒", resposta: "BOMBEIRO" },
+        { figuraTipo: "emoji", figura: "🚓", resposta: "POLÍCIA" }, { figuraTipo: "emoji", figura: "🚜", resposta: "TRATOR" }, { figuraTipo: "emoji", figura: "🏎️", resposta: "CARRO DE CORRIDA" },
+        { figuraTipo: "emoji", figura: "⛵", resposta: "VELEIRO" }, { figuraTipo: "emoji", figura: "🛶", resposta: "CANOA" }
     ];
     const frasesTransporte = [
-        "Meu pai dirige o ______ para ir ao trabalho.",
-        "O ______ voa bem alto no céu.",
-        "O ______ navega pelos oceanos.",
-        "Pedalo na minha ______ todos os dias.",
-        "Pego o ______ para ir à escola.",
-        "O ______ passa pelos trilhos.",
-        "Ele pilotava uma ______ preta.",
-        "O ______ pode pousar em lugares pequenos.",
-        "O ______ viaja para o espaço.",
-        "A ______ é rápida e usada no mar.",
-        "A ______ leva grupos menores de pessoas.",
-        "A criança andava de ______ na calçada.",
-        "A ______ é parecida com a moto, mas menor.",
-        "A ______ leva doentes ao hospital.",
-        "O ______ combate incêndios.",
-        "A ______ persegue os bandidos.",
-        "O ______ puxa arado no campo.",
-        "O ______ é muito veloz nas pistas.",
-        "O ______ usa velas para se mover.",
-        "A ______ é remada em rios e lagos."
+        "Meu pai dirige o ______.", "O ______ voa bem alto.", "O ______ navega pelos oceanos.", "Pedalo na minha ______.", "Pego o ______ para ir à escola.",
+        "O ______ passa pelos trilhos.", "Ele pilotava uma ______ preta.", "O ______ pode pousar em lugares pequenos.", "O ______ viaja para o espaço.",
+        "A ______ é rápida e usada no mar.", "A ______ leva grupos menores.", "A criança andava de ______.", "A ______ é parecida com a moto.",
+        "A ______ leva doentes ao hospital.", "O ______ combate incêndios.", "A ______ persegue os bandidos.", "O ______ puxa arado no campo.",
+        "O ______ é muito veloz nas pistas.", "O ______ usa velas para se mover.", "A ______ é remada em rios."
     ];
 
-    // Mapeamento
     const abas = {
         tab1: { atividades: atividadesPrincipal, frases: frasesPrincipal, gridId: "grid-principal", inputs: [], nome: "Principal" },
         tab2: { atividades: atividadesFrutas, frases: frasesFrutas, gridId: "grid-frutas", inputs: [], nome: "Frutas" },
         tab3: { atividades: atividadesEscola, frases: frasesEscola, gridId: "grid-escola", inputs: [], nome: "Escola" },
         tab4: { atividades: atividadesTransporte, frases: frasesTransporte, gridId: "grid-transporte", inputs: [], nome: "Transporte" }
     };
-
     let abaAtual = "tab1";
 
-    function normalizarTexto(texto) {
-        return texto.trim().toUpperCase()
-            .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-            .replace(/[^A-Z0-9]/g, '');
-    }
-
+    function normalizarTexto(t) { return t.trim().toUpperCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^A-Z0-9]/g, ''); }
     function renderizarFigura(item) {
         if (item.figuraTipo === "svg") return item.svgFunc();
         return `<span class="figura-emoji">${item.figura}</span>`;
@@ -774,7 +369,6 @@
         if (!grid) return;
         grid.innerHTML = "";
         const inputsTemp = [];
-
         aba.atividades.forEach((atividade, idx) => {
             const card = document.createElement("div");
             card.className = "card";
@@ -788,9 +382,7 @@
             let fraseHtml = "<p>";
             for (let i = 0; i < partes.length; i++) {
                 fraseHtml += partes[i];
-                if (i < partes.length - 1) {
-                    fraseHtml += `<input type="text" class="resposta" id="${abaId}_resp_${idx}" placeholder="______" autocomplete="off">`;
-                }
+                if (i < partes.length - 1) fraseHtml += `<input type="text" class="resposta" id="${abaId}_resp_${idx}" placeholder="______">`;
             }
             fraseHtml += "</p>";
             fraseDiv.innerHTML = fraseHtml;
@@ -806,18 +398,10 @@
             card.appendChild(figuraDiv);
             card.appendChild(fraseDiv);
             grid.appendChild(card);
-
             const inputEl = document.getElementById(`${abaId}_resp_${idx}`);
-            inputsTemp.push({
-                input: inputEl,
-                feedback: feedbackSpan,
-                respostaCorreta: atividade.resposta,
-                idx: idx
-            });
+            inputsTemp.push({ input: inputEl, feedback: feedbackSpan, respostaCorreta: atividade.resposta, idx });
             btnVerificar.addEventListener("click", () => verificarIndividual(abaId, idx));
-            inputEl.addEventListener("keypress", (e) => {
-                if (e.key === "Enter") verificarIndividual(abaId, idx);
-            });
+            inputEl.addEventListener("keypress", (e) => { if (e.key === "Enter") verificarIndividual(abaId, idx); });
         });
         aba.inputs = inputsTemp;
     }
@@ -827,9 +411,7 @@
         const item = aba.inputs[idx];
         if (!item) return;
         const digitado = item.input.value;
-        const normalizadoDigitado = normalizarTexto(digitado);
-        const normalizadoCorreto = normalizarTexto(item.respostaCorreta);
-        const correto = normalizadoDigitado === normalizadoCorreto;
+        const correto = normalizarTexto(digitado) === normalizarTexto(item.respostaCorreta);
         if (correto) {
             item.feedback.innerHTML = "✅ Muito bem!";
             item.feedback.className = "feedback correto";
@@ -843,15 +425,10 @@
         }
     }
 
-    function verificarTodas() {
-        const aba = abas[abaAtual];
-        for (let i = 0; i < aba.inputs.length; i++) verificarIndividual(abaAtual, i);
-    }
-
+    function verificarTodas() { for (let i = 0; i < abas[abaAtual].inputs.length; i++) verificarIndividual(abaAtual, i); }
     function limparTodas() {
         const aba = abas[abaAtual];
-        for (let i = 0; i < aba.inputs.length; i++) {
-            const item = aba.inputs[i];
+        for (let item of aba.inputs) {
             item.input.value = "";
             item.input.style.borderColor = "#ffd48a";
             item.input.style.backgroundColor = "#fffef7";
@@ -859,160 +436,110 @@
             item.feedback.className = "feedback";
         }
     }
-
     function mostrarGabarito() {
         const aba = abas[abaAtual];
-        for (let i = 0; i < aba.inputs.length; i++) {
-            const item = aba.inputs[i];
-            item.feedback.innerHTML = `💡 Resposta: ${item.respostaCorreta}`;
-            item.feedback.className = "feedback";
-        }
+        for (let item of aba.inputs) item.feedback.innerHTML = `💡 Resposta: ${item.respostaCorreta}`;
     }
 
     function obterRespostasFormatadas() {
         const nomeAluno = document.getElementById("nomeAluno").value.trim() || "[não informado]";
         const aba = abas[abaAtual];
-        let respostasTexto = `📋 ATIVIDADE - TODOS NA REDE (${aba.nome})\n`;
-        respostasTexto += `👨‍🎓 Aluno(a): ${nomeAluno}\n`;
-        respostasTexto += `📅 Data: ${new Date().toLocaleString('pt-BR')}\n`;
-        respostasTexto += `═`.repeat(50) + `\n\n`;
+        let texto = `📋 ATIVIDADE - TODOS NA REDE (${aba.nome})\n👨‍🎓 Aluno: ${nomeAluno}\n📅 Data: ${new Date().toLocaleString('pt-BR')}\n${"=".repeat(50)}\n\n`;
         let acertos = 0;
         for (let i = 0; i < aba.atividades.length; i++) {
-            const fraseOriginal = aba.frases[i];
-            const respostaAluno = aba.inputs[i].input.value.trim() || "[em branco]";
+            const resp = aba.inputs[i].input.value.trim() || "[em branco]";
             const correta = aba.atividades[i].resposta;
-            const estaCorreta = normalizarTexto(respostaAluno) === normalizarTexto(correta);
-            if (estaCorreta) acertos++;
-            respostasTexto += `${(i+1).toString().padStart(2, '0')}. ${fraseOriginal.replace('______', '________')}\n`;
-            respostasTexto += `   Resposta: "${respostaAluno}" ${estaCorreta ? '✓' : '✗'} (Correta: ${correta})\n\n`;
+            const ok = normalizarTexto(resp) === normalizarTexto(correta);
+            if (ok) acertos++;
+            texto += `${(i+1).toString().padStart(2,'0')}. ${aba.frases[i].replace('______','________')}\n   Resposta: "${resp}" ${ok?'✓':'✗'} (Correta: ${correta})\n\n`;
         }
-        respostasTexto += `\n${`═`.repeat(50)}\n`;
-        respostasTexto += `📊 Total de acertos: ${acertos} de ${aba.atividades.length} (${Math.round(acertos/aba.atividades.length*100)}%)\n`;
-        respostasTexto += `✨ Atividade concluída! ✨`;
-        return { texto: respostasTexto, acertos, total: aba.atividades.length };
+        texto += `${"=".repeat(50)}\n📊 Acertos: ${acertos}/${aba.atividades.length} (${Math.round(acertos/aba.atividades.length*100)}%)\n✨ Atividade concluída! ✨`;
+        return { texto, acertos, total: aba.atividades.length };
     }
 
-    function mostrarCertificado(nomeAluno, atividadeNome) {
+    function mostrarCertificado(nome, atividade) {
         const modal = document.getElementById("certificadoModal");
-        document.getElementById("certNomeAluno").innerText = nomeAluno;
-        document.getElementById("certAtividade").innerText = atividadeNome;
+        document.getElementById("certNomeAluno").innerText = nome;
+        document.getElementById("certAtividade").innerText = atividade;
         document.getElementById("certData").innerText = new Date().toLocaleDateString('pt-BR');
         modal.style.display = "flex";
     }
 
     async function enviarViaFormspree() {
         const nomeAluno = document.getElementById("nomeAluno").value.trim();
-        if (!nomeAluno) {
-            mostrarMensagem("📝 Por favor, digite seu nome antes de enviar.", "erro-email");
-            return;
-        }
+        if (!nomeAluno) { mostrarMensagem("📝 Digite seu nome.", "erro-email"); return; }
         const aba = abas[abaAtual];
-        const { texto: respostasTexto, acertos, total } = obterRespostasFormatadas();
+        const { texto, acertos, total } = obterRespostasFormatadas();
 
-        // Criar formulário temporário
         const form = document.createElement("form");
         form.method = "POST";
-        // 🔧 SUBSTITUA SEU ID AQUI (ex: xyzabc123)
+        // 🔧 SUBSTITUA AQUI SEU ID DO FORMSPREE
         form.action = "https://formspree.io/f/mvzwjoza";
         form.style.display = "none";
         const campos = [
             { name: "nome_aluno", value: nomeAluno },
-            { name: "respostas", value: respostasTexto },
+            { name: "respostas", value: texto },
             { name: "data_envio", value: new Date().toLocaleString('pt-BR') },
             { name: "acertos", value: `${acertos}/${total}` },
             { name: "_subject", value: `Atividade ${aba.nome} - ${nomeAluno}` }
         ];
-        campos.forEach(campo => {
-            const input = document.createElement("input");
-            input.name = campo.name;
-            input.value = campo.value;
-            form.appendChild(input);
-        });
+        campos.forEach(c => { const i = document.createElement("input"); i.name = c.name; i.value = c.value; form.appendChild(i); });
         document.body.appendChild(form);
-
-        mostrarMensagem("📤 Enviando respostas... Aguarde.", "loading");
+        mostrarMensagem("📤 Enviando...", "loading");
         try {
-            const response = await fetch(form.action, {
-                method: "POST",
-                body: new FormData(form),
-                headers: { "Accept": "application/json" }
-            });
-            if (response.ok) {
-                mostrarMensagem("✅ Respostas enviadas com sucesso! Gerando certificado...", "sucesso");
-                // Exibe o certificado
+            const resp = await fetch(form.action, { method: "POST", body: new FormData(form), headers: { "Accept": "application/json" } });
+            if (resp.ok) {
+                mostrarMensagem("✅ Enviado! Gerando certificado...", "sucesso");
                 mostrarCertificado(nomeAluno, aba.nome);
-                setTimeout(() => {
-                    const msgDiv = document.getElementById("mensagemEnvio");
-                    msgDiv.style.display = "none";
-                }, 3000);
+                setTimeout(() => { document.getElementById("mensagemEnvio").style.display = "none"; }, 4000);
             } else {
-                mostrarMensagem("❌ Erro ao enviar. Verifique o Formspree.", "erro-email");
+                mostrarMensagem("❌ Erro no envio. Verifique o Formspree.", "erro-email");
             }
-        } catch (error) {
-            mostrarMensagem("❌ Erro de conexão. Tente novamente.", "erro-email");
-        } finally {
-            document.body.removeChild(form);
-        }
+        } catch (e) { mostrarMensagem("❌ Erro de conexão.", "erro-email"); }
+        finally { document.body.removeChild(form); }
     }
 
-    function mostrarMensagem(texto, tipo) {
-        const msgDiv = document.getElementById("mensagemEnvio");
-        msgDiv.innerHTML = texto;
-        msgDiv.className = `mensagem-envio ${tipo}`;
-        msgDiv.style.display = "block";
-        if (tipo !== "loading") {
-            setTimeout(() => {
-                if (msgDiv.className.includes(tipo)) msgDiv.style.display = "none";
-            }, 5000);
-        }
+    function mostrarMensagem(msg, tipo) {
+        const div = document.getElementById("mensagemEnvio");
+        div.innerHTML = msg;
+        div.className = `mensagem-envio ${tipo}`;
+        div.style.display = "block";
+        if (tipo !== "loading") setTimeout(() => div.style.display = "none", 5000);
     }
 
-    // Inicialização
     window.addEventListener("DOMContentLoaded", () => {
-        renderizarAba("tab1");
-        renderizarAba("tab2");
-        renderizarAba("tab3");
-        renderizarAba("tab4");
-
-        const botoesTab = document.querySelectorAll(".tab-btn");
-        botoesTab.forEach(btn => {
+        renderizarAba("tab1"); renderizarAba("tab2"); renderizarAba("tab3"); renderizarAba("tab4");
+        document.querySelectorAll(".tab-btn").forEach(btn => {
             btn.addEventListener("click", () => {
-                const tabId = btn.getAttribute("data-tab");
-                if (!tabId) return;
-                botoesTab.forEach(b => b.classList.remove("ativo"));
-                document.querySelectorAll(".tab-conteudo").forEach(cont => cont.classList.remove("ativo"));
+                const id = btn.getAttribute("data-tab");
+                if (!id) return;
+                document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("ativo"));
+                document.querySelectorAll(".tab-conteudo").forEach(c => c.classList.remove("ativo"));
                 btn.classList.add("ativo");
-                document.getElementById(tabId).classList.add("ativo");
-                abaAtual = tabId;
+                document.getElementById(id).classList.add("ativo");
+                abaAtual = id;
             });
         });
-
         document.getElementById("verificarTodosBtn").addEventListener("click", verificarTodas);
         document.getElementById("limparTodosBtn").addEventListener("click", limparTodas);
         document.getElementById("mostrarGabaritoBtn").addEventListener("click", mostrarGabarito);
         document.getElementById("btnEnviarFormspree").addEventListener("click", enviarViaFormspree);
-
-        // Fechar certificado
-        document.getElementById("fecharCertificado").addEventListener("click", () => {
-            document.getElementById("certificadoModal").style.display = "none";
-        });
+        document.getElementById("fecharCertificado").addEventListener("click", () => document.getElementById("certificadoModal").style.display = "none");
         document.getElementById("imprimirCertificado").addEventListener("click", () => {
             const conteudo = document.querySelector(".certificado-card").cloneNode(true);
-            const janela = window.open("", "_blank");
-            janela.document.write(`
-                <html>
-                <head><title>Certificado - Todos na Rede</title>
+            const win = window.open("", "_blank");
+            win.document.write(`
+                <html><head><title>Certificado</title>
                 <style>
-                    body { font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background: #eee; }
+                    body { font-family: Arial; display: flex; justify-content: center; align-items: center; height: 100vh; background: #eee; }
                     .certificado-card { background: white; width: 700px; padding: 30px; border: 8px solid; border-image: linear-gradient(135deg, #1e6f5c, #3498db, #2c3e50) 1; text-align: center; }
                     .assinaturas { display: flex; justify-content: space-between; margin-top: 40px; }
                     .linha-assinatura { border-top: 1px solid black; margin-top: 30px; padding-top: 8px; width: 200px; }
+                    .btn-fechar, .btn-imprimir { display: none; }
                 </style>
-                </head>
-                <body>${conteudo.outerHTML}</body>
-                </html>
+                </head><body>${conteudo.outerHTML}</body></html>
             `);
-            janela.print();
+            win.print();
         });
     });
 </script>
