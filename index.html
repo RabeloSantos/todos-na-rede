@@ -2,284 +2,352 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Professor Reginaldo · Corrija os erros</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todos na Rede – Atividades EJA | Prof. Reginaldo Rabelo</title>
     <style>
         * { box-sizing: border-box; }
         body {
-            background: linear-gradient(145deg, #b3e0ff, #7fc9f0);
-            font-family: 'Segoe UI', sans-serif;
+            font-family: 'Segoe UI', 'Comic Neue', sans-serif;
+            background: linear-gradient(135deg, #e8f0e8 0%, #d4e4d4 100%);
             margin: 0;
             padding: 20px;
-            min-height: 100vh;
+            color: #1e2a3e;
         }
         .container {
-            max-width: 800px;
+            max-width: 1400px;
             margin: 0 auto;
-            background: #fffef7;
-            border-radius: 32px;
-            overflow: hidden;
-            box-shadow: 0 16px 32px rgba(0,0,0,0.12);
+            background: rgba(255,255,255,0.95);
+            border-radius: 48px;
+            padding: 24px 30px 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
         }
         .header {
-            background: #1c6e8f;
-            padding: 24px;
-            color: white;
-            border-bottom: 5px solid #ffcf7a;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 20px;
+            border-bottom: 3px solid #ffd966;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+            background: linear-gradient(to right, #fff8e7, #fff);
+            border-radius: 30px;
+            padding: 20px 25px;
         }
-        .header h1 { margin: 0; font-size: 1.8rem; }
-        .content { padding: 28px; }
-        .card {
-            background: #fefcf0;
-            padding: 20px;
-            border-radius: 28px;
-            margin-bottom: 20px;
+        .titulo-area { flex: 1; }
+        h1 {
+            font-size: 2rem;
+            background: linear-gradient(135deg, #2b6e4c, #f4a261);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin: 0 0 8px 0;
         }
-        .frase-errada {
-            background: #ffe6e5;
-            padding: 12px;
-            border-radius: 20px;
-            font-weight: 500;
-            margin-bottom: 15px;
+        .professor {
+            font-size: 1.1rem;
+            color: #e67e22;
+            font-weight: 600;
+            background: #fff3e0;
+            display: inline-block;
+            padding: 4px 16px;
+            border-radius: 40px;
         }
-        textarea {
-            width: 100%;
-            padding: 12px;
-            border-radius: 20px;
-            border: 2px solid #d4cbab;
-            font-family: inherit;
-            resize: vertical;
+        .aluno-area {
+            background: #f8f9fa;
+            padding: 12px 24px;
+            border-radius: 60px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .aluno-area input {
+            padding: 10px 18px;
+            border-radius: 50px;
+            border: 2px solid #ffd966;
             font-size: 1rem;
+            width: 240px;
         }
-        button {
-            background: #1c6e8f;
+        .btn-enviar {
+            background: linear-gradient(135deg, #2b6e4c, #1e6f5c);
             color: white;
             border: none;
-            padding: 10px 24px;
-            border-radius: 40px;
+            padding: 10px 28px;
+            border-radius: 50px;
+            font-weight: bold;
             cursor: pointer;
-            margin: 5px;
         }
-        button:disabled { background: #bbbbbb; cursor: not-allowed; }
-        .hidden { display: none; }
-        .input-nome {
-            width: 100%;
-            padding: 12px;
-            border-radius: 40px;
-            border: 2px solid #d4cbab;
-            font-size: 1rem;
-            margin-bottom: 20px;
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 28px;
+            margin: 35px 0;
         }
-        .premio {
-            text-align: center;
-            background: #faf7e1;
+        .card {
+            background: #fff;
+            border-radius: 32px;
+            overflow: hidden;
+            border: 1px solid #ffe1a0;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            transition: transform 0.2s;
+        }
+        .card:hover { transform: translateY(-6px); }
+        .figura {
+            background: linear-gradient(145deg, #fffaf0, #fff5e6);
             padding: 20px;
-            border-radius: 28px;
-            margin-top: 20px;
-            border: 2px solid gold;
+            text-align: center;
+            border-bottom: 2px solid #ffe0a3;
+            min-height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        footer { text-align: center; font-size: 0.75rem; margin-top: 20px; padding: 15px; color: #5f6a6f; }
-        .btn-group { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
-        .status-msg { margin-top: 10px; font-size: 0.9rem; text-align: center; }
-        .loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 2px solid #fff;
-            border-radius: 50%;
-            border-top-color: transparent;
-            animation: spin 0.6s linear infinite;
-            margin-left: 8px;
-            vertical-align: middle;
+        .figura-emoji { font-size: 5rem; }
+        .figura-svg { width: 90px; height: 90px; }
+        .frase {
+            padding: 20px;
+            font-size: 1.05rem;
+            font-weight: 600;
         }
-        @keyframes spin { to { transform: rotate(360deg); } }
-        .confete {
+        input.resposta {
+            font-size: 1rem;
+            padding: 8px 12px;
+            width: 100%;
+            max-width: 170px;
+            border: 2px solid #ffd48a;
+            border-radius: 60px;
+            text-align: center;
+            margin-top: 6px;
+        }
+        .btn-check {
+            background: #fff0db;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 40px;
+            font-weight: 700;
+            color: #c16f2e;
+            cursor: pointer;
+            margin-top: 12px;
+        }
+        .feedback { margin-top: 12px; font-size: 0.8rem; font-weight: 600; }
+        .correto { color: #2b6e4c; background: #e0f2e9; padding: 4px 10px; border-radius: 30px; display: inline-block; }
+        .errado { color: #c2410c; background: #ffe6de; padding: 4px 10px; border-radius: 30px; display: inline-block; }
+        .acao-global { display: flex; justify-content: center; gap: 20px; margin: 20px 0; }
+        button.primario { background: linear-gradient(135deg, #f4a261, #e76f51); color: white; border: none; padding: 12px 26px; border-radius: 50px; font-weight: bold; cursor: pointer; }
+        .footer { text-align: center; margin-top: 35px; font-size: 0.8rem; color: #7f8c7a; border-top: 1px solid #ffe0b5; padding-top: 20px; }
+        .mensagem-envio {
             position: fixed;
-            font-size: 24px;
-            pointer-events: none;
-            animation: confete 1s ease-out forwards;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #d9f0e3;
+            color: #1e5a3e;
+            padding: 12px 24px;
+            border-radius: 60px;
+            display: none;
+            z-index: 1000;
+            font-weight: bold;
         }
-        @keyframes confete {
-            0% { transform: translateY(0); opacity: 1; }
-            100% { transform: translateY(-100px); opacity: 0; }
-        }
-        .resumo-item { margin-bottom: 15px; border-bottom: 1px solid #ddd; padding-bottom: 10px; text-align: left; }
-        .resumo-certa { color: #2b8c4a; }
-        .resumo-errada { color: #e07a5f; }
     </style>
 </head>
 <body>
 <div class="container">
     <div class="header">
-        <h1>Professor Reginaldo <span>✍️ Corrija os erros</span></h1>
-        <p>Reescreva a frase corretamente e clique em "Próxima". Avance mesmo com erros.</p>
-    </div>
-    <div class="content">
-        <div id="identificacao" class="card">
-            <h3>📝 Identifique-se</h3>
-            <p>Digite seu nome completo para começar.</p>
-            <input type="text" id="nomeAluno" class="input-nome" placeholder="Seu nome completo">
-            <button id="iniciarBtn" style="background:#2b8c4a;">▶️ Iniciar atividade</button>
+        <div class="titulo-area">
+            <h1>🌐 Todos na rede – Vamos aprender juntos?</h1>
+            <div class="professor">✨ Professor Reginaldo Rabelo ✨</div>
         </div>
-        <div id="questionArea" class="card hidden"></div>
-        <div id="resultadoArea" class="premio hidden"></div>
-        <footer>✨ Escreva a versão corrigida. Não é preciso acertar para avançar.</footer>
+        <div class="aluno-area">
+            <label>👧🧒 Seu nome:</label>
+            <input type="text" id="nomeAluno" placeholder="Digite seu nome completo">
+            <button id="btnEnviarFormspree" class="btn-enviar">📧 Enviar respostas</button>
+        </div>
     </div>
+    <div id="mensagemEnvio" class="mensagem-envio"></div>
+    <form id="formspreeForm" method="POST" style="display: none;">
+        <input type="text" name="nome_aluno" id="hiddenNome">
+        <input type="text" name="respostas" id="hiddenRespostas">
+        <input type="text" name="data_envio" id="hiddenData">
+        <input type="text" name="_subject" value="Nova atividade - Todos na Rede - Prof. Reginaldo Rabelo">
+    </form>
+    <div class="grid" id="atividades-grid"></div>
+    <div class="acao-global">
+        <button id="verificarTodosBtn" class="primario">✅ Verificar todas</button>
+        <button id="limparTodosBtn">🧽 Limpar respostas</button>
+        <button id="mostrarGabaritoBtn">🔍 Mostrar gabarito</button>
+    </div>
+    <div class="footer">🌟 EJA + Fundamental 1 + Cultura Digital – Aprendizagem sem idade 🌟</div>
 </div>
-<script>
-    const FORMSPREE_URL = "https://formspree.io/f/mvzwjoza"; // substitua
 
-    const frases = [
-        { errada: "Eu gosto de paçear no parque.", correta: "Eu gosto de passear no parque." },
-        { errada: "Nós fomos no cinema ontem a noite.", correta: "Nós fomos ao cinema ontem à noite." },
-        { errada: "Ele faz tudo com muito geito.", correta: "Ele faz tudo com muito jeito." },
-        { errada: "A professora chegou atrazada.", correta: "A professora chegou atrasada." },
-        { errada: "Meu aniversário é no dia 15 de dezembro.", correta: "Meu aniversário é no dia 15 de dezembro." },
-        { errada: "Aquela musica é muito bonita.", correta: "Aquela música é muito bonita." },
-        { errada: "Ela comprou um vestido azul marinho.", correta: "Ela comprou um vestido azul-marinho." },
-        { errada: "O carro tava com o pneu furado.", correta: "O carro estava com o pneu furado." },
-        { errada: "Vamos fazer uma viagem pra praia.", correta: "Vamos fazer uma viagem para a praia." },
-        { errada: "Eles estão estudando para o concurso.", correta: "Eles estão estudando para o concurso." },
-        { errada: "A menina estava muito feliz porque ganhou um presente.", correta: "A menina estava muito feliz porque ganhou um presente." },
-        { errada: "Meu pai trabalha numa empresa grande.", correta: "Meu pai trabalha em uma empresa grande." },
-        { errada: "Nós vamos chegar mais cedo hoje.", correta: "Nós vamos chegar mais cedo hoje." },
-        { errada: "Ontem a noite teve um show muito bom.", correta: "Ontem à noite teve um show muito bom." },
-        { errada: "A criança caiu e machucou o joelho.", correta: "A criança caiu e machucou o joelho." }
+<script>
+    function getCanaSVG() {
+        return `<svg class="figura-svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="none"/><rect x="44" y="15" width="12" height="55" fill="#6B8E23" rx="3"/><rect x="48" y="12" width="4" height="60" fill="#556B2F"/><rect x="42" y="28" width="16" height="3" fill="#CD853F"/><rect x="42" y="43" width="16" height="3" fill="#CD853F"/><rect x="42" y="58" width="16" height="3" fill="#CD853F"/><path d="M50 15 L40 5 L45 8 L50 12 Z" fill="#6B8E23"/><path d="M50 15 L60 5 L55 8 L50 12 Z" fill="#6B8E23"/><path d="M50 70 L40 85 L45 82 L50 78 Z" fill="#6B8E23"/><path d="M50 70 L60 85 L55 82 L50 78 Z" fill="#6B8E23"/><ellipse cx="50" cy="75" rx="20" ry="6" fill="#8B5A2B"/></svg>`;
+    }
+    function getCapaSVG() {
+        return `<svg class="figura-svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="none"/><path d="M30 25 L70 25 L65 60 L50 80 L35 60 Z" fill="#E34234" stroke="#B22222" stroke-width="2"/><path d="M45 25 L55 25 L52 38 L50 42 L48 38 Z" fill="#FFD700"/><circle cx="50" cy="40" r="8" fill="#FFD700"/><path d="M47 40 L53 40 M50 37 L50 43" stroke="#E34234" stroke-width="2"/><path d="M65 40 L72 35 L70 45 Z" fill="#FFB6C1" opacity="0.6"/><path d="M35 40 L28 35 L30 45 Z" fill="#FFB6C1" opacity="0.6"/></svg>`;
+    }
+    function getSapoSVG() {
+        return `<svg class="figura-svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="none"/><ellipse cx="50" cy="55" rx="28" ry="22" fill="#7CB518" stroke="#5A8F2C" stroke-width="2"/><circle cx="35" cy="45" r="6" fill="white" stroke="#2D2D2D" stroke-width="1.5"/><circle cx="65" cy="45" r="6" fill="white" stroke="#2D2D2D" stroke-width="1.5"/><circle cx="37" cy="46" r="2.5" fill="black"/><circle cx="67" cy="46" r="2.5" fill="black"/><circle cx="38" cy="45" r="1" fill="white"/><circle cx="68" cy="45" r="1" fill="white"/><path d="M43 58 Q50 64 57 58" stroke="#5A3A1A" stroke-width="2" fill="none"/><ellipse cx="28" cy="70" rx="8" ry="5" fill="#6A9C2F" stroke="#5A8F2C"/><ellipse cx="72" cy="70" rx="8" ry="5" fill="#6A9C2F" stroke="#5A8F2C"/><ellipse cx="38" cy="60" rx="6" ry="4" fill="#6A9C2F" stroke="#5A8F2C"/><ellipse cx="62" cy="60" rx="6" ry="4" fill="#6A9C2F" stroke="#5A8F2C"/><circle cx="45" cy="65" r="3" fill="#5A8F2C" opacity="0.6"/><circle cx="55" cy="67" r="3" fill="#5A8F2C" opacity="0.6"/><circle cx="50" cy="62" r="2.5" fill="#5A8F2C" opacity="0.6"/></svg>`;
+    }
+
+    const atividades = [
+        { figuraTipo: "emoji", figura: "⚽", resposta: "BOLA" },
+        { figuraTipo: "emoji", figura: "👄", resposta: "BOCA" },
+        { figuraTipo: "emoji", figura: "🍰", resposta: "BOLO" },
+        { figuraTipo: "svg", figura: "cana", svgFunc: getCanaSVG, resposta: "CANA" },
+        { figuraTipo: "svg", figura: "capa", svgFunc: getCapaSVG, resposta: "CAPA" },
+        { figuraTipo: "emoji", figura: "🏠", resposta: "CASA" },
+        { figuraTipo: "emoji", figura: "🎲", resposta: "DADO" },
+        { figuraTipo: "emoji", figura: "🖐️", resposta: "DEDO" },
+        { figuraTipo: "emoji", figura: "🧚", resposta: "FADA" },
+        { figuraTipo: "emoji", figura: "🔥", resposta: "FOGO" },
+        { figuraTipo: "emoji", figura: "🐱", resposta: "GATO" },
+        { figuraTipo: "emoji", figura: "🐓", resposta: "GALO" },
+        { figuraTipo: "emoji", figura: "🪟", resposta: "JANELA" },
+        { figuraTipo: "emoji", figura: "🥫", resposta: "LATA" },
+        { figuraTipo: "emoji", figura: "🌙", resposta: "LUA" },
+        { figuraTipo: "emoji", figura: "🧳", resposta: "MALA" },
+        { figuraTipo: "emoji", figura: "🗺️", resposta: "MAPA" },
+        { figuraTipo: "emoji", figura: "🦆", resposta: "PATO" },
+        { figuraTipo: "emoji", figura: "🐀", resposta: "RATO" },
+        { figuraTipo: "svg", figura: "sapo", svgFunc: getSapoSVG, resposta: "SAPO" }
     ];
 
-    let indiceAtual = 0;
-    let respostas = new Array(frases.length).fill("");
-    let nomeAluno = "";
+    const frases = [
+        "As crianças chutaram a ______ no campo.",
+        "A menina abriu a ______ para cantar.",
+        "Minha avó fez um ______ de chocolate.",
+        "No engenho, colheram muita ______.",
+        "O super-herói usava uma ______ vermelha.",
+        "Moro na ______ amarela perto do parque.",
+        "Jogamos o ______ e caiu no número 6.",
+        "Cortei o ______ ao mexer na tesoura.",
+        "A ______ madrinha fez mágica com a varinha.",
+        "O ______ queimou a lenha rapidamente.",
+        "O ______ dormiu no telhado o dia todo.",
+        "O ______ cantou cedinho na fazenda.",
+        "Abri a ______ para entrar o vento fresco.",
+        "Comprei uma ______ de refrigerante.",
+        "A ______ brilhava no céu estrelado.",
+        "Arrumei a ______ para viajar amanhã.",
+        "O ______ mostra todos os estados do Brasil.",
+        "O ______ nadou no lago com seus filhotes.",
+        "O ______ roeu o queijo da cozinha.",
+        "O ______ pulou no jardim depois da chuva."
+    ];
 
-    const identificacaoDiv = document.getElementById('identificacao');
-    const questionArea = document.getElementById('questionArea');
-    const resultadoArea = document.getElementById('resultadoArea');
+    let inputRefs = [];
 
-    function iniciar() {
-        nomeAluno = document.getElementById('nomeAluno').value.trim();
-        if (nomeAluno === "") {
-            alert("Digite seu nome completo.");
-            return;
-        }
-        identificacaoDiv.classList.add('hidden');
-        questionArea.classList.remove('hidden');
-        indiceAtual = 0;
-        respostas.fill("");
-        carregarFrase();
+    function normalizar(t) { return t.trim().toUpperCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^A-Z0-9]/g, ''); }
+
+    function renderizarFigura(a) {
+        if (a.figuraTipo === "svg") return a.svgFunc();
+        return `<span class="figura-emoji">${a.figura}</span>`;
     }
 
-    function carregarFrase() {
-        const frase = frases[indiceAtual];
-        const saved = respostas[indiceAtual];
-        questionArea.innerHTML = `
-            <div>
-                <div><strong>Frase ${indiceAtual+1} de ${frases.length}</strong></div>
-                <div class="frase-errada">❌ ${frase.errada}</div>
-                <textarea id="correcao" rows="3" placeholder="Escreva a frase correta aqui...">${saved}</textarea>
-                <div class="btn-group">
-                    <button id="proximoBtn">➡️ Próxima frase</button>
-                </div>
-                ${indiceAtual > 0 ? '<button id="anteriorBtn" style="background:#bba87a;">⬅️ Anterior</button>' : ''}
-            </div>
-        `;
-        const textarea = document.getElementById('correcao');
-        const proximoBtn = document.getElementById('proximoBtn');
-        proximoBtn.onclick = () => {
-            respostas[indiceAtual] = textarea.value;
-            if (indiceAtual + 1 < frases.length) {
-                indiceAtual++;
-                carregarFrase();
-            } else {
-                mostrarResultados();
+    function renderizar() {
+        const grid = document.getElementById('atividades-grid');
+        grid.innerHTML = '';
+        inputRefs = [];
+        atividades.forEach((atv, idx) => {
+            const card = document.createElement('div'); card.className = 'card';
+            const figDiv = document.createElement('div'); figDiv.className = 'figura';
+            figDiv.innerHTML = renderizarFigura(atv);
+            const fraseDiv = document.createElement('div'); fraseDiv.className = 'frase';
+            const partes = frases[idx].split('______');
+            let html = '<p>';
+            for (let i = 0; i < partes.length; i++) {
+                html += partes[i];
+                if (i < partes.length - 1) html += `<input type="text" class="resposta" id="resp_${idx}" placeholder="______">`;
             }
-        };
-        if (indiceAtual > 0) {
-            const anteriorBtn = document.getElementById('anteriorBtn');
-            anteriorBtn.onclick = () => {
-                respostas[indiceAtual] = textarea.value;
-                indiceAtual--;
-                carregarFrase();
-            };
-        }
-    }
-
-    function normalize(str) {
-        return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim().replace(/\s+/g, ' ');
-    }
-
-    function mostrarResultados() {
-        questionArea.classList.add('hidden');
-        const acertos = respostas.filter((r, idx) => r && normalize(r) === normalize(frases[idx].correta)).length;
-        const erros = frases.length - acertos;
-
-        let detalhes = '';
-        frases.forEach((f, i) => {
-            const resposta = respostas[i] || "(não respondida)";
-            const correta = normalize(resposta) === normalize(f.correta);
-            detalhes += `
-                <div class="resumo-item">
-                    <strong>Frase ${i+1}:</strong><br>
-                    Original: ${f.errada}<br>
-                    Sua correção: ${resposta}<br>
-                    Correção esperada: ${f.correta}<br>
-                    <span class="${correta ? 'resumo-certa' : 'resumo-errada'}">${correta ? '✓ Correta' : '✗ Incorreta'}</span>
-                </div>
-            `;
+            html += '</p>';
+            fraseDiv.innerHTML = html;
+            const btn = document.createElement('button'); btn.textContent = 'Verificar'; btn.className = 'btn-check';
+            const fb = document.createElement('div'); fb.className = 'feedback'; fb.id = `fb_${idx}`; fb.innerHTML = '✨ ';
+            fraseDiv.appendChild(btn); fraseDiv.appendChild(fb);
+            card.appendChild(figDiv); card.appendChild(fraseDiv);
+            grid.appendChild(card);
+            const inputEl = document.getElementById(`resp_${idx}`);
+            inputRefs.push({ input: inputEl, feedback: fb, respostaCorreta: atv.resposta });
+            btn.addEventListener('click', () => verificar(idx));
+            inputEl.addEventListener('keypress', (e) => { if (e.key === 'Enter') verificar(idx); });
         });
-
-        resultadoArea.classList.remove('hidden');
-        resultadoArea.innerHTML = `
-            <h2>🏆 RESULTADO - ${nomeAluno} 🏆</h2>
-            <p>✅ Acertos: ${acertos} de ${frases.length}</p>
-            <p>❌ Erros: ${erros}</p>
-            <div style="max-height: 400px; overflow-y: auto; text-align: left; margin: 20px 0;">
-                ${detalhes}
-            </div>
-            <div class="btn-group">
-                <button id="emailBtn">📧 Enviar resultados por e-mail</button>
-                <button id="reiniciarBtn">🔄 Recomeçar atividade</button>
-            </div>
-            <div id="statusMsg" class="status-msg"></div>
-        `;
-
-        document.getElementById('emailBtn').onclick = () => enviarResultados(acertos, detalhes);
-        document.getElementById('reiniciarBtn').onclick = () => {
-            resultadoArea.classList.add('hidden');
-            identificacaoDiv.classList.remove('hidden');
-            document.getElementById('nomeAluno').value = '';
-            indiceAtual = 0;
-            respostas.fill("");
-        };
     }
 
-    async function enviarResultados(acertos, detalhes) {
-        const formData = new FormData();
-        formData.append('_subject', `Corrija Erros - ${nomeAluno}`);
-        let texto = `Aluno: ${nomeAluno}\nData: ${new Date().toLocaleString()}\nAcertos: ${acertos}/${frases.length}\n\n${detalhes.replace(/<[^>]*>/g, '')}`;
-        formData.append('resultado_completo', texto);
-
-        const btn = document.getElementById('emailBtn');
-        btn.innerHTML = '📧 Enviando... <span class="loading"></span>';
-        btn.disabled = true;
-
-        try {
-            const response = await fetch(FORMSPREE_URL, {
-                method: 'POST',
-                body: formData,
-                headers: { 'Accept': 'application/json' }
-            });
-            if (response.ok) {
-                btn.innerHTML = '✅ Enviado com sucesso!';
-                document.getElementById('statusMsg').innerHTML = '📧 Resultados enviados para o professor. Obrigado!';
-            } else {
-                throw new Error();
-            }
-        } catch (error) {
-            btn.innerHTML = '❌ Erro ao enviar. Tente novamente.';
-            btn.disabled = false;
+    function verificar(idx) {
+        const item = inputRefs[idx];
+        const digitado = item.input.value;
+        const correto = normalizar(digitado) === normalizar(item.respostaCorreta);
+        if (correto) {
+            item.feedback.innerHTML = '✅ Muito bem!';
+            item.feedback.className = 'feedback correto';
+            item.input.style.borderColor = '#2b6e4c';
+        } else {
+            item.feedback.innerHTML = `❌ Quase! A palavra é ${item.respostaCorreta}.`;
+            item.feedback.className = 'feedback errado';
+            item.input.style.borderColor = '#f4a261';
         }
     }
 
-    document.getElementById('iniciarBtn').addEventListener('click', iniciar);
+    function verificarTodas() { for (let i = 0; i < inputRefs.length; i++) verificar(i); }
+    function limparTodas() {
+        for (let i = 0; i < inputRefs.length; i++) {
+            inputRefs[i].input.value = '';
+            inputRefs[i].input.style.borderColor = '#ffd48a';
+            inputRefs[i].feedback.innerHTML = '✨ ';
+            inputRefs[i].feedback.className = 'feedback';
+        }
+    }
+    function mostrarGabarito() { for (let i = 0; i < inputRefs.length; i++) inputRefs[i].feedback.innerHTML = `💡 Resposta: ${inputRefs[i].respostaCorreta}`; }
+
+    function obterRespostas() {
+        const nome = document.getElementById('nomeAluno').value.trim() || "não informado";
+        let txt = `📋 TODOS NA REDE - Prof. Reginaldo\n👨‍🎓 Aluno: ${nome}\n📅 ${new Date().toLocaleString('pt-BR')}\n\n`;
+        let acertos = 0;
+        for (let i = 0; i < atividades.length; i++) {
+            const respAluno = inputRefs[i].input.value.trim() || "[vazio]";
+            const correta = atividades[i].resposta;
+            const ok = normalizar(respAluno) === normalizar(correta);
+            if (ok) acertos++;
+            txt += `${i+1}. ${frases[i].replace('______', '________')}\n   Resposta: "${respAluno}" ${ok ? '✓' : '✗'} (Correta: ${correta})\n\n`;
+        }
+        txt += `📊 Acertos: ${acertos}/${atividades.length} (${Math.round(acertos/atividades.length*100)}%)\n✨ Atividade concluída!`;
+        return txt;
+    }
+
+    async function enviar() {
+        const nome = document.getElementById('nomeAluno').value.trim();
+        if (!nome) { alert('Digite seu nome antes de enviar.'); return; }
+        const respostas = obterRespostas();
+        document.getElementById('hiddenNome').value = nome;
+        document.getElementById('hiddenRespostas').value = respostas;
+        document.getElementById('hiddenData').value = new Date().toLocaleString('pt-BR');
+        const form = document.getElementById('formspreeForm');
+        // ⚠️ ATENÇÃO: Substitua pelo SEU ID do Formspree
+        form.action = "https://formspree.io/f/YOUR_FORM_ID";
+        const msgDiv = document.getElementById('mensagemEnvio');
+        msgDiv.style.display = 'block'; msgDiv.innerHTML = '📤 Enviando...'; msgDiv.style.background = '#fff3cd'; msgDiv.style.color = '#856404';
+        try {
+            const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } });
+            if (res.ok) {
+                msgDiv.innerHTML = '✅ Enviado! Professor Reginaldo receberá seu trabalho.';
+                msgDiv.style.background = '#d9f0e3'; msgDiv.style.color = '#1e5a3e';
+                setTimeout(() => msgDiv.style.display = 'none', 5000);
+            } else throw new Error();
+        } catch(e) {
+            msgDiv.innerHTML = '❌ Erro ao enviar. Tente novamente.';
+            msgDiv.style.background = '#ffe0d6'; msgDiv.style.color = '#b13e2d';
+            setTimeout(() => msgDiv.style.display = 'none', 5000);
+        }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        renderizar();
+        document.getElementById('verificarTodosBtn').addEventListener('click', verificarTodas);
+        document.getElementById('limparTodosBtn').addEventListener('click', limparTodas);
+        document.getElementById('mostrarGabaritoBtn').addEventListener('click', mostrarGabarito);
+        document.getElementById('btnEnviarFormspree').addEventListener('click', enviar);
+    });
 </script>
 </body>
 </html>
