@@ -315,6 +315,83 @@
             padding-top: 20px;
         }
 
+        /* Estilos do Certificado */
+        .certificado-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        .certificado-card {
+            background: white;
+            width: 90%;
+            max-width: 700px;
+            border-radius: 32px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            text-align: center;
+            border: 8px solid;
+            border-image: linear-gradient(135deg, #1e6f5c, #3498db, #2c3e50) 1;
+            animation: fadeIn 0.3s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .certificado-card h2 {
+            color: #1e6f5c;
+            margin-top: 0;
+        }
+        .certificado-card .aluno-nome {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin: 20px 0;
+            border-bottom: 2px dashed #ccc;
+            display: inline-block;
+            padding: 0 20px;
+        }
+        .assinaturas {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        .assinatura {
+            flex: 1;
+            text-align: center;
+        }
+        .linha-assinatura {
+            border-top: 1px solid #000;
+            margin-top: 30px;
+            padding-top: 8px;
+            width: 100%;
+        }
+        .btn-fechar {
+            background: #2b6e4c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 40px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+        .btn-imprimir {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 40px;
+            margin-top: 20px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
         .mensagem-envio {
             text-align: center;
             margin-top: 15px;
@@ -329,28 +406,24 @@
             z-index: 1000;
             min-width: 300px;
         }
-
         .sucesso {
             background: #d9f0e3;
             color: #1e5a3e;
             display: block;
             border-left: 5px solid #2b6e4c;
         }
-
         .erro-email {
             background: #ffe0d6;
             color: #b13e2d;
             display: block;
             border-left: 5px solid #e76f51;
         }
-
         .loading {
             background: #fff3cd;
             color: #856404;
             display: block;
             border-left: 5px solid #ffc107;
         }
-
         @media (max-width: 700px) {
             .container {
                 padding: 16px;
@@ -370,6 +443,9 @@
             .tab-btn {
                 padding: 8px 16px;
                 font-size: 0.9rem;
+            }
+            .assinaturas {
+                flex-direction: column;
             }
         }
     </style>
@@ -399,18 +475,10 @@
     </div>
 
     <!-- Conteúdo das abas -->
-    <div id="tab1" class="tab-conteudo ativo">
-        <div class="grid" id="grid-principal"></div>
-    </div>
-    <div id="tab2" class="tab-conteudo">
-        <div class="grid" id="grid-frutas"></div>
-    </div>
-    <div id="tab3" class="tab-conteudo">
-        <div class="grid" id="grid-escola"></div>
-    </div>
-    <div id="tab4" class="tab-conteudo">
-        <div class="grid" id="grid-transporte"></div>
-    </div>
+    <div id="tab1" class="tab-conteudo ativo"><div class="grid" id="grid-principal"></div></div>
+    <div id="tab2" class="tab-conteudo"><div class="grid" id="grid-frutas"></div></div>
+    <div id="tab3" class="tab-conteudo"><div class="grid" id="grid-escola"></div></div>
+    <div id="tab4" class="tab-conteudo"><div class="grid" id="grid-transporte"></div></div>
 
     <div class="acao-global">
         <button id="verificarTodosBtn" class="primario">✅ Verificar todas (aba atual)</button>
@@ -422,8 +490,34 @@
     </div>
 </div>
 
+<!-- Modal do Certificado -->
+<div id="certificadoModal" class="certificado-overlay">
+    <div class="certificado-card">
+        <h2>🏅 CERTIFICADO DE CONCLUSÃO 🏅</h2>
+        <p>Atividade "Todos na Rede" - Professor Reginaldo Rabelo</p>
+        <p>Esta é para certificar que</p>
+        <div class="aluno-nome" id="certNomeAluno">_______________</div>
+        <p>completou com sucesso a atividade de <strong id="certAtividade">__________</strong>, demonstrando dedicação e aprendizado.</p>
+        <p>Data: <span id="certData"></span></p>
+        <div class="assinaturas">
+            <div class="assinatura">
+                <div class="linha-assinatura"></div>
+                <p>Assinatura do Aluno</p>
+            </div>
+            <div class="assinatura">
+                <div class="linha-assinatura"></div>
+                <p>Professor Reginaldo Rabelo</p>
+            </div>
+        </div>
+        <div>
+            <button class="btn-fechar" id="fecharCertificado">Fechar</button>
+            <button class="btn-imprimir" id="imprimirCertificado">🖨️ Imprimir</button>
+        </div>
+    </div>
+</div>
+
 <script>
-    // ==================== SVGs (mesmos do original) ====================
+    // ==================== SVGs ====================
     function getCanaSVG() {
         return `<svg class="figura-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
             <rect width="100" height="100" fill="none"/>
@@ -471,12 +565,12 @@
         </svg>`;
     }
 
-    // ==================== ATIVIDADE PRINCIPAL (original) ====================
+    // ==================== ATIVIDADE PRINCIPAL ====================
     const atividadesPrincipal = [
         { figuraTipo: "emoji", figura: "⚽", resposta: "BOLA", dica: "bola" },
         { figuraTipo: "emoji", figura: "👄", resposta: "BOCA", dica: "boca" },
         { figuraTipo: "emoji", figura: "🍰", resposta: "BOLO", dica: "bolo" },
-        { figuraTipo: "svg", figura: "cana", svgFunc: getCanaSVG, resposta: "CANA", dica: "cana-de-açúcar" },
+        { figuraTipo: "svg", figura: "cana", svgFunc: getCanaSVG, resposta: "CANA", dica: "cana" },
         { figuraTipo: "svg", figura: "capa", svgFunc: getCapaSVG, resposta: "CAPA", dica: "capa" },
         { figuraTipo: "emoji", figura: "🏠", resposta: "CASA", dica: "casa" },
         { figuraTipo: "emoji", figura: "🎲", resposta: "DADO", dica: "dado" },
@@ -655,12 +749,12 @@
         "A ______ é remada em rios e lagos."
     ];
 
-    // Mapeamento para gerenciar cada aba
+    // Mapeamento
     const abas = {
-        tab1: { atividades: atividadesPrincipal, frases: frasesPrincipal, gridId: "grid-principal", inputs: [] },
-        tab2: { atividades: atividadesFrutas, frases: frasesFrutas, gridId: "grid-frutas", inputs: [] },
-        tab3: { atividades: atividadesEscola, frases: frasesEscola, gridId: "grid-escola", inputs: [] },
-        tab4: { atividades: atividadesTransporte, frases: frasesTransporte, gridId: "grid-transporte", inputs: [] }
+        tab1: { atividades: atividadesPrincipal, frases: frasesPrincipal, gridId: "grid-principal", inputs: [], nome: "Principal" },
+        tab2: { atividades: atividadesFrutas, frases: frasesFrutas, gridId: "grid-frutas", inputs: [], nome: "Frutas" },
+        tab3: { atividades: atividadesEscola, frases: frasesEscola, gridId: "grid-escola", inputs: [], nome: "Escola" },
+        tab4: { atividades: atividadesTransporte, frases: frasesTransporte, gridId: "grid-transporte", inputs: [], nome: "Transporte" }
     };
 
     let abaAtual = "tab1";
@@ -672,9 +766,7 @@
     }
 
     function renderizarFigura(item) {
-        if (item.figuraTipo === "svg") {
-            return item.svgFunc();
-        }
+        if (item.figuraTipo === "svg") return item.svgFunc();
         return `<span class="figura-emoji">${item.figura}</span>`;
     }
 
@@ -688,11 +780,9 @@
         aba.atividades.forEach((atividade, idx) => {
             const card = document.createElement("div");
             card.className = "card";
-
             const figuraDiv = document.createElement("div");
             figuraDiv.className = "figura";
             figuraDiv.innerHTML = renderizarFigura(atividade);
-
             const fraseDiv = document.createElement("div");
             fraseDiv.className = "frase";
             const fraseCompleta = aba.frases[idx];
@@ -706,7 +796,6 @@
             }
             fraseHtml += "</p>";
             fraseDiv.innerHTML = fraseHtml;
-
             const btnVerificar = document.createElement("button");
             btnVerificar.textContent = "Verificar";
             btnVerificar.className = "btn-check";
@@ -714,7 +803,6 @@
             feedbackSpan.className = "feedback";
             feedbackSpan.id = `${abaId}_fb_${idx}`;
             feedbackSpan.innerHTML = "✨ ";
-
             fraseDiv.appendChild(btnVerificar);
             fraseDiv.appendChild(feedbackSpan);
             card.appendChild(figuraDiv);
@@ -728,7 +816,6 @@
                 respostaCorreta: atividade.resposta,
                 idx: idx
             });
-
             btnVerificar.addEventListener("click", () => verificarIndividual(abaId, idx));
             inputEl.addEventListener("keypress", (e) => {
                 if (e.key === "Enter") verificarIndividual(abaId, idx);
@@ -745,7 +832,6 @@
         const normalizadoDigitado = normalizarTexto(digitado);
         const normalizadoCorreto = normalizarTexto(item.respostaCorreta);
         const correto = normalizadoDigitado === normalizadoCorreto;
-
         if (correto) {
             item.feedback.innerHTML = "✅ Muito bem!";
             item.feedback.className = "feedback correto";
@@ -761,9 +847,7 @@
 
     function verificarTodas() {
         const aba = abas[abaAtual];
-        for (let i = 0; i < aba.inputs.length; i++) {
-            verificarIndividual(abaAtual, i);
-        }
+        for (let i = 0; i < aba.inputs.length; i++) verificarIndividual(abaAtual, i);
     }
 
     function limparTodas() {
@@ -790,17 +874,10 @@
     function obterRespostasFormatadas() {
         const nomeAluno = document.getElementById("nomeAluno").value.trim() || "[não informado]";
         const aba = abas[abaAtual];
-        let tituloAba = "";
-        if (abaAtual === "tab1") tituloAba = "Principal";
-        else if (abaAtual === "tab2") tituloAba = "Frutas";
-        else if (abaAtual === "tab3") tituloAba = "Escola";
-        else tituloAba = "Transporte";
-
-        let respostasTexto = `📋 ATIVIDADE - TODOS NA REDE (${tituloAba})\n`;
+        let respostasTexto = `📋 ATIVIDADE - TODOS NA REDE (${aba.nome})\n`;
         respostasTexto += `👨‍🎓 Aluno(a): ${nomeAluno}\n`;
         respostasTexto += `📅 Data: ${new Date().toLocaleString('pt-BR')}\n`;
         respostasTexto += `═`.repeat(50) + `\n\n`;
-
         let acertos = 0;
         for (let i = 0; i < aba.atividades.length; i++) {
             const fraseOriginal = aba.frases[i];
@@ -808,7 +885,6 @@
             const correta = aba.atividades[i].resposta;
             const estaCorreta = normalizarTexto(respostaAluno) === normalizarTexto(correta);
             if (estaCorreta) acertos++;
-
             respostasTexto += `${(i+1).toString().padStart(2, '0')}. ${fraseOriginal.replace('______', '________')}\n`;
             respostasTexto += `   Resposta: "${respostaAluno}" ${estaCorreta ? '✓' : '✗'} (Correta: ${correta})\n\n`;
         }
@@ -818,43 +894,45 @@
         return { texto: respostasTexto, acertos, total: aba.atividades.length };
     }
 
+    function mostrarCertificado(nomeAluno, atividadeNome) {
+        const modal = document.getElementById("certificadoModal");
+        document.getElementById("certNomeAluno").innerText = nomeAluno;
+        document.getElementById("certAtividade").innerText = atividadeNome;
+        document.getElementById("certData").innerText = new Date().toLocaleDateString('pt-BR');
+        modal.style.display = "flex";
+    }
+
     async function enviarViaFormspree() {
         const nomeAluno = document.getElementById("nomeAluno").value.trim();
         if (!nomeAluno) {
             mostrarMensagem("📝 Por favor, digite seu nome antes de enviar.", "erro-email");
             return;
         }
+        const aba = abas[abaAtual];
         const { texto: respostasTexto, acertos, total } = obterRespostasFormatadas();
 
-        // Cria um formulário temporário para envio
+        // Criar formulário temporário
         const form = document.createElement("form");
         form.method = "POST";
-        form.action = "https://formspree.io/f/mvzwjoza"; // 🔧 SUBSTITUA PELO SEU ID
+        // 🔧 SUBSTITUA SEU ID AQUI (ex: xyzabc123)
+        form.action = "https://formspree.io/f/mvzwjoza";
         form.style.display = "none";
-        const nomeField = document.createElement("input");
-        nomeField.name = "nome_aluno";
-        nomeField.value = nomeAluno;
-        const respField = document.createElement("input");
-        respField.name = "respostas";
-        respField.value = respostasTexto;
-        const dataField = document.createElement("input");
-        dataField.name = "data_envio";
-        dataField.value = new Date().toLocaleString('pt-BR');
-        const acertosField = document.createElement("input");
-        acertosField.name = "acertos";
-        acertosField.value = `${acertos}/${total}`;
-        const subjectField = document.createElement("input");
-        subjectField.name = "_subject";
-        subjectField.value = `Atividade - ${nomeAluno} (${abaAtual === "tab1" ? "Principal" : abaAtual === "tab2" ? "Frutas" : abaAtual === "tab3" ? "Escola" : "Transporte"})`;
-        form.appendChild(nomeField);
-        form.appendChild(respField);
-        form.appendChild(dataField);
-        form.appendChild(acertosField);
-        form.appendChild(subjectField);
+        const campos = [
+            { name: "nome_aluno", value: nomeAluno },
+            { name: "respostas", value: respostasTexto },
+            { name: "data_envio", value: new Date().toLocaleString('pt-BR') },
+            { name: "acertos", value: `${acertos}/${total}` },
+            { name: "_subject", value: `Atividade ${aba.nome} - ${nomeAluno}` }
+        ];
+        campos.forEach(campo => {
+            const input = document.createElement("input");
+            input.name = campo.name;
+            input.value = campo.value;
+            form.appendChild(input);
+        });
         document.body.appendChild(form);
 
         mostrarMensagem("📤 Enviando respostas... Aguarde.", "loading");
-
         try {
             const response = await fetch(form.action, {
                 method: "POST",
@@ -862,11 +940,13 @@
                 headers: { "Accept": "application/json" }
             });
             if (response.ok) {
-                mostrarMensagem("✅ Respostas enviadas com sucesso! Professor Reginaldo receberá seu trabalho.", "sucesso");
+                mostrarMensagem("✅ Respostas enviadas com sucesso! Gerando certificado...", "sucesso");
+                // Exibe o certificado
+                mostrarCertificado(nomeAluno, aba.nome);
                 setTimeout(() => {
                     const msgDiv = document.getElementById("mensagemEnvio");
                     msgDiv.style.display = "none";
-                }, 5000);
+                }, 3000);
             } else {
                 mostrarMensagem("❌ Erro ao enviar. Verifique o Formspree.", "erro-email");
             }
@@ -889,21 +969,18 @@
         }
     }
 
-    // Inicializar abas e eventos
+    // Inicialização
     window.addEventListener("DOMContentLoaded", () => {
-        // Renderiza todas as abas
         renderizarAba("tab1");
         renderizarAba("tab2");
         renderizarAba("tab3");
         renderizarAba("tab4");
 
-        // Eventos dos botões das abas
         const botoesTab = document.querySelectorAll(".tab-btn");
         botoesTab.forEach(btn => {
             btn.addEventListener("click", () => {
                 const tabId = btn.getAttribute("data-tab");
                 if (!tabId) return;
-                // Remove ativo de todos os botões e conteúdos
                 botoesTab.forEach(b => b.classList.remove("ativo"));
                 document.querySelectorAll(".tab-conteudo").forEach(cont => cont.classList.remove("ativo"));
                 btn.classList.add("ativo");
@@ -916,6 +993,29 @@
         document.getElementById("limparTodosBtn").addEventListener("click", limparTodas);
         document.getElementById("mostrarGabaritoBtn").addEventListener("click", mostrarGabarito);
         document.getElementById("btnEnviarFormspree").addEventListener("click", enviarViaFormspree);
+
+        // Fechar certificado
+        document.getElementById("fecharCertificado").addEventListener("click", () => {
+            document.getElementById("certificadoModal").style.display = "none";
+        });
+        document.getElementById("imprimirCertificado").addEventListener("click", () => {
+            const conteudo = document.querySelector(".certificado-card").cloneNode(true);
+            const janela = window.open("", "_blank");
+            janela.document.write(`
+                <html>
+                <head><title>Certificado - Todos na Rede</title>
+                <style>
+                    body { font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background: #eee; }
+                    .certificado-card { background: white; width: 700px; padding: 30px; border: 8px solid; border-image: linear-gradient(135deg, #1e6f5c, #3498db, #2c3e50) 1; text-align: center; }
+                    .assinaturas { display: flex; justify-content: space-between; margin-top: 40px; }
+                    .linha-assinatura { border-top: 1px solid black; margin-top: 30px; padding-top: 8px; width: 200px; }
+                </style>
+                </head>
+                <body>${conteudo.outerHTML}</body>
+                </html>
+            `);
+            janela.print();
+        });
     });
 </script>
 </body>
